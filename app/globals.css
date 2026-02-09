@@ -51,3 +51,12 @@ body {
 ::-webkit-scrollbar-track {
   background: var(--bg);
 }
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

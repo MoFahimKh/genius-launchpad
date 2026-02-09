@@ -4,15 +4,23 @@ import { LaunchpadItem } from "@/features/launchpad/types";
 export function LaunchpadRowHeader({ item }: { item: LaunchpadItem }) {
   return (
     <div className="flex items-center gap-3">
-      <div className="h-9 w-9 rounded-[4px] bg-gradient-to-br from-purple-600/60 via-purple-500/50 to-pink-500/40" />
+      {item.avatarUrl ? (
+        <img
+          src={item.avatarUrl}
+          alt={item.symbol || item.name}
+          className="h-9 w-9 rounded-sm object-cover"
+        />
+      ) : (
+        <div className="h-9 w-9 rounded-sm bg-linear-to-br from-purple-600/60 via-purple-500/50 to-pink-500/40" />
+      )}
       <div className="flex-1">
         <div className="flex items-center gap-2">
-          <span className="max-w-[160px] truncate text-sm font-semibold text-[var(--text)]">
+          <span className="max-w-40 truncate text-sm font-semibold text-foreground">
             {item.name}
           </span>
-          <span className="text-xs text-[var(--muted)]">{item.symbol}</span>
-          <Copy size={14} className="text-[var(--muted-2)]" />
-          <ExternalLink size={14} className="text-[var(--muted-2)]" />
+          <span className="text-xs text-(--muted)">{item.symbol}</span>
+          <Copy size={14} className="text-(--muted-2)" />
+          <ExternalLink size={14} className="text-(--muted-2)" />
         </div>
       </div>
     </div>

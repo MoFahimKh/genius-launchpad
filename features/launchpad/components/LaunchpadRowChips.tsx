@@ -11,11 +11,11 @@ const toneStyles: Record<Chip["tone"], string> = {
 
 export function LaunchpadRowChips({ chips }: { chips: Chip[] }) {
   return (
-    <div className="mt-3 flex flex-wrap gap-2 text-[11px]">
+    <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto text-[11px]">
       {chips.map((chip, index) => (
         <div
           key={`${chip.label}-${index}`}
-          className={`flex h-[21px] min-w-[56px] items-center justify-center gap-1 rounded-[4px] border px-2 ${toneStyles[chip.tone]}`}
+          className={`flex h-5.25 min-w-14 shrink-0 items-center justify-center gap-1 rounded-sm border px-2 ${toneStyles[chip.tone]}`}
         >
           <span>{chip.label}</span>
           <span className="font-semibold">{chip.value}</span>

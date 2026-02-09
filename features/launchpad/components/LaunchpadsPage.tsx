@@ -1,17 +1,97 @@
+"use client";
+
+import { useCallback, useMemo } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Container } from "@/components/layout/Container";
-import { mockLaunchpadColumns } from "@/features/launchpad/data/mockLaunchpadColumns";
 import { LaunchpadColumn } from "@/features/launchpad/components/LaunchpadColumn";
 import { LaunchpadsHeader } from "@/features/launchpad/components/LaunchpadsHeader";
+import { useLaunchpadDataRealtime } from "@/features/launchpad/api/useLaunchpadDataRealtime";
+import { useLaunchpadItems } from "@/features/launchpad/hooks/useLaunchpadItems";
+import { LaunchpadColumn as LaunchpadColumnType, LaunchpadItem } from "@/features/launchpad/types";
+import { LaunchpadColumnSkeleton } from "@/features/launchpad/skeletons/LaunchpadColumnSkeleton";
 
 export function LaunchpadsPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const searchParamsString = searchParams.toString();
+  const networkId = useMemo(() => {
+    const params = new URLSearchParams(searchParamsString);
+    const param = params.get("networkId");
+    const parsed = param ? Number(param) : 56;
+    return Number.isFinite(parsed) ? parsed : 56;
+  }, [searchParamsString]);
+
+  const handleNetworkChange = useCallback(
+    (nextNetworkId: number) => {
+      const params = new URLSearchParams(searchParamsString);
+      params.set("networkId", String(nextNetworkId));
+      router.replace(`/launchpad?${params.toString()}`);
+    },
+    [router, searchParamsString]
+  );
+
+  const { lastEvents, launchpadData } = useLaunchpadDataRealtime({ networkId });
+  const liveItems = useLaunchpadItems({ lastEvents, launchpadData, networkId });
+
+  const liveColumns = useMemo<LaunchpadColumnType[]>(() => {
+    if (liveItems.length === 0) return [];
+    const newPairs: LaunchpadItem[] = [];
+    const almostThere: LaunchpadItem[] = [];
+    const graduated: LaunchpadItem[] = [];
+
+    liveItems.forEach((item) => {
+      const percent = item.progress?.percent ?? 0;
+      if (percent >= 100) {
+        graduated.push(item);
+      } else if (percent >= 80) {
+        almostThere.push(item);
+      } else {
+        newPairs.push(item);
+      }
+    });
+
+    return [
+      {
+        id: "new-pairs",
+        title: "New Pairs",
+        fee: "0.025",
+        filterLabel: "Filter",
+        count: newPairs.length,
+        items: newPairs
+      },
+      {
+        id: "almost-there",
+        title: "Almost There",
+        fee: "0.025",
+        filterLabel: "Filter",
+        count: almostThere.length,
+        items: almostThere
+      },
+      {
+        id: "graduated",
+        title: "Graduated",
+        fee: "0.025",
+        filterLabel: "Filter",
+        count: graduated.length,
+        items: graduated
+      }
+    ];
+  }, [liveItems]);
+
+  const showSkeleton = liveColumns.length === 0;
+
   return (
     <Container>
       <div className="relative py-6">
-        <LaunchpadsHeader />
+        <LaunchpadsHeader networkId={networkId} onNetworkChange={handleNetworkChange} />
         <div className="mt-6 grid grid-cols-1 gap-4 xl:grid-cols-3 xl:gap-0">
-          {mockLaunchpadColumns.map((column, index) => (
-            <LaunchpadColumn key={column.id} column={column} isFirst={index === 0} />
-          ))}
+          {showSkeleton
+            ? [0, 1, 2].map((index) => (
+                <LaunchpadColumnSkeleton key={index} isFirst={index === 0} />
+              ))
+            : liveColumns.map((column, index) => (
+                <LaunchpadColumn key={column.id} column={column} isFirst={index === 0} />
+              ))}
         </div>
       </div>
     </Container>

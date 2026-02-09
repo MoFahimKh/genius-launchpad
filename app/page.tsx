@@ -7,7 +7,7 @@ export default function HomePage() {
       <div className="flex min-h-[60vh] items-center justify-center">
         <Link
           href="/launchpad"
-          className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] px-6 py-3 text-sm font-semibold text-[var(--text)]"
+          className="rounded-xl border border-(--border) bg-(--surface-2) px-6 py-3 text-sm font-semibold text-foreground"
         >
           Open Launchpads
         </Link>
