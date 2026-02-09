@@ -1,26 +1,53 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0c0816;
+  --surface: #130a1f;
+  --surface-2: #1a0f2b;
+  --surface-3: #231237;
+  --border: #2a1643;
+  --border-strong: #3a1f5c;
+  --text: #f3ecff;
+  --muted: #b7a6d6;
+  --muted-2: #8a7aa9;
+  --accent: #a56bff;
+  --accent-2: #f2c1ff;
+  --chip-green: #0dd7a7;
+  --chip-green-bg: rgba(13, 215, 167, 0.12);
+  --chip-red: #ff6b6b;
+  --chip-red-bg: rgba(255, 107, 107, 0.12);
+  --chip-orange: #ffb04a;
+  --chip-orange-bg: rgba(255, 176, 74, 0.12);
+  --chip-blue: #7dd3fc;
+  --chip-blue-bg: rgba(125, 211, 252, 0.12);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+* {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
 }

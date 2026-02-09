@@ -1,0 +1,36 @@
+export type Metric = {
+  label: string;
+  value: string;
+};
+
+export type ChipTone = "green" | "red" | "orange" | "blue" | "muted";
+
+export type Chip = {
+  label: string;
+  value: string;
+  tone: ChipTone;
+};
+
+export type LaunchpadItem = {
+  id: string;
+  name: string;
+  symbol: string;
+  age: string;
+  metrics: Metric[];
+  progress: {
+    percent: number;
+    label?: string;
+  };
+  chips: Chip[];
+  avatarUrl?: string;
+  statusIcons?: string[];
+};
+
+export type LaunchpadColumn = {
+  id: string;
+  title: string;
+  fee: string;
+  filterLabel: string;
+  count: number;
+  items: LaunchpadItem[];
+};

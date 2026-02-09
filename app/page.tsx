@@ -1,15 +1,16 @@
+import Link from "next/link";
 import { Container } from "@/components/layout/Container";
-import { SwapPanel } from "@/features/swap/components/SwapPanel";
-import { TrendingTokensStrip } from "@/features/tokens/components/TrendingTokensStrip";
-import { TokenTable } from "@/features/tokens/components/TokenTable";
 
 export default function HomePage() {
   return (
     <Container>
-      <div className="grid gap-6 py-8">
-        <SwapPanel />
-        <TrendingTokensStrip />
-        <TokenTable />
+      <div className="flex min-h-[60vh] items-center justify-center">
+        <Link
+          href="/launchpad"
+          className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] px-6 py-3 text-sm font-semibold text-[var(--text)]"
+        >
+          Open Launchpads
+        </Link>
       </div>
     </Container>
   );
