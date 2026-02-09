@@ -5,9 +5,9 @@ export function LaunchpadRowProgress({
 }) {
   return (
     <div className="flex items-center gap-3">
-      <div className="h-1 w-full rounded-[1px] bg-[var(--border)]">
+      <div className="h-1 w-full rounded-[4px] bg-[var(--border)]">
         <div
-          className="h-1 rounded-[1px] bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)]"
+          className="h-1 rounded-[4px] bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)]"
           style={{ width: `${progress.percent}%` }}
         />
       </div>

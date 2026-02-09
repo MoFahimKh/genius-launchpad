@@ -7,7 +7,7 @@ import { LaunchpadRowChips } from "@/features/launchpad/components/LaunchpadRowC
 
 export function LaunchpadRow({ item }: { item: LaunchpadItem }) {
   return (
-    <div className="px-4 py-3">
+    <div className="cursor-pointer bg-background px-4 py-3 transition-colors hover:bg-gradient-to-l hover:from-[#09001A] hover:via-[rgba(28,16,58,0.80)] hover:to-[rgba(36,23,71,0.50)] transition-all">
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1 space-y-2">
           <LaunchpadRowHeader item={item} />

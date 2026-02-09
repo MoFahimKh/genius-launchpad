@@ -13,7 +13,7 @@ export function LaunchpadColumn({
   return (
     <div className={`flex flex-col gap-3 ${isFirst ? "" : "xl:-ml-px"}`}>
       <LaunchpadsToolbar />
-      <div className="overflow-hidden rounded-[1px] border border-[var(--border)] bg-[var(--surface-2)]">
+      <div className="overflow-hidden rounded-[4px] border border-[var(--border)] bg-[var(--surface-2)]">
         <LaunchpadColumnHeader column={column} />
         <LaunchpadList items={column.items} />
       </div>

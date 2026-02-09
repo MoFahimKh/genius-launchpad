@@ -15,7 +15,7 @@ export function LaunchpadRowChips({ chips }: { chips: Chip[] }) {
       {chips.map((chip, index) => (
         <div
           key={`${chip.label}-${index}`}
-          className={`flex items-center gap-1 rounded-[1px] border px-2 py-1 ${toneStyles[chip.tone]}`}
+          className={`flex items-center gap-1 rounded-[4px] border px-2 py-1 ${toneStyles[chip.tone]}`}
         >
           <span>{chip.label}</span>
           <span className="font-semibold">{chip.value}</span>
