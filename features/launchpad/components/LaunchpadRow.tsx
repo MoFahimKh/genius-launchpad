@@ -7,9 +7,9 @@ import { LaunchpadRowChips } from "@/features/launchpad/components/LaunchpadRowC
 
 export function LaunchpadRow({ item }: { item: LaunchpadItem }) {
   return (
-    <div className="cursor-pointer bg-background px-4 py-3 transition-colors hover:bg-gradient-to-l hover:from-[#09001A] hover:via-[rgba(28,16,58,0.80)] hover:to-[rgba(36,23,71,0.50)] transition-all">
+    <div className="h-[130px] cursor-pointer bg-[var(--bg)] px-4 py-2 transition-all hover:bg-gradient-to-l hover:from-[#09001A] hover:via-[rgba(28,16,58,0.80)] hover:to-[rgba(36,23,71,0.50)]">
       <div className="flex items-start justify-between gap-4">
-        <div className="flex-1 space-y-2">
+        <div className="flex-1 space-y-1.5">
           <LaunchpadRowHeader item={item} />
           <LaunchpadRowMeta item={item} />
           <LaunchpadRowProgress progress={item.progress} />
