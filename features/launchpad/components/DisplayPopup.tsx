@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Circle, Grid2x2, Hash, LoaderCircle, Minus, RefreshCcw, Square, X } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { DisplayMetrics, useDisplayMetricsStore } from "@/features/launchpad/stores/useDisplayMetricsStore";
 
 type DisplayPopupProps = {
@@ -32,6 +34,11 @@ const  METRICS= [
 
 export function DisplayPopup({ onClose }: DisplayPopupProps) {
   const { updateMetric, metrics } = useDisplayMetricsStore();
+  const [selectedTab, setSelectedTab] = useState<string>("Layout");
+
+  const tabs = ["Layout", "Metrics", "Row", "Other"];
+
+  const [selectedSize, setSelectedSize] = useState<string>("small");
 
   return (
     <div className="flex flex-col gap-4 text-foreground">
@@ -51,14 +58,69 @@ export function DisplayPopup({ onClose }: DisplayPopupProps) {
       </div>
 
       <div className="flex flex-row items-center gap-4 font-medium">
-        <button className="text-xs flex flex-col items-center justify-center rounded-sm bg-(--border) py-2 w-full">
-          <p className="text-foreground/33">M.Cap <span className="text-foreground">44k</span></p>
-          <p className="text-foreground">Small</p>
-        </button>
-        <button className="text-xs flex flex-col items-center justify-center rounded-sm border-(--border) py-2 w-full">
-          <p className="text-foreground/33">M.Cap <span className="text-foreground text-[16px]">44k</span></p>
-          <p className="text-foreground">Small</p>
-        </button>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <span className="flex w-full">
+              <button
+                type="button"
+                disabled
+                className={`text-xs flex flex-col items-center justify-center rounded-sm py-2 w-full transition-colors border border-(--border) h-13 cursor-not-allowed opacity-60 ${
+                  selectedSize === "small"
+                    && "bg-(--border)"
+                }`}
+              >
+                <p className="text-foreground/33">M.Cap <span className="text-foreground">44k</span></p>
+                <p className="text-foreground">Small</p>
+              </button>
+            </span>
+          </TooltipTrigger>
+          <TooltipContent>Coming soon</TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <span className="flex w-full">
+              <button
+                type="button"
+                disabled
+                className={`text-xs flex flex-col items-center justify-center rounded-sm py-2 w-full transition-colors border border-(--border) h-13 cursor-not-allowed opacity-60 ${
+                  selectedSize === "large"
+                    && "bg-(--border)"
+                }`}
+              >
+                <p className="text-foreground/33">M.Cap <span className="text-foreground text-[16px]">44k</span></p>
+                <p className="text-foreground">Large</p>
+              </button>
+            </span>
+          </TooltipTrigger>
+          <TooltipContent>Coming soon</TooltipContent>
+        </Tooltip>
+        </div>
+
+      <div className="flex flex-row items-center gap-0 border border-(--border) rounded-sm font-medium p-1">
+        {tabs.map((tab) => (
+          <Tooltip key={tab}>
+            <TooltipTrigger asChild>
+              <span className="flex w-full">
+                <button
+                  type="button"
+                  disabled
+                  className={`text-xs flex items-center justify-center rounded-sm py-2 px-4 w-full transition-colors cursor-not-allowed opacity-60 ${
+                    selectedTab === tab
+                      ? "bg-(--border)"
+                      : ""
+                  }`}
+                >
+                  {tab}
+                </button>
+              </span>
+            </TooltipTrigger>
+            <TooltipContent>Coming soon</TooltipContent>
+          </Tooltip>
+        ))}
+      </div>
+
+      <div>
+
       </div>
 
       <div>
