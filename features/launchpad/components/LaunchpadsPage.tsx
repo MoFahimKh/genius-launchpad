@@ -91,7 +91,7 @@ export function LaunchpadsPage() {
                 <LaunchpadColumn
                   key={column.id}
                   column={column}
-                  isFirst={index === 0}
+                  index={index}
                   filters={filters}
                   onFiltersChange={setFilters}
                 />

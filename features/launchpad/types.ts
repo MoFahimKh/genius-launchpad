@@ -1,5 +1,3 @@
-import { LucideIcon } from "lucide-react";
-
 export type Metric = {
   label: string;
   value: string;

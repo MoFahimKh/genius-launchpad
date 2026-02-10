@@ -10,18 +10,6 @@ const toneStyles: Record<Chip["tone"], string> = {
   muted: "bg-[var(--surface)] text-[var(--muted)] border-[var(--border)]"
 };
 
-const BADGE_TOOLTIPS: Record<string, string> = {
-  "TOP 10 H.": "TOP10 H.",
-  "DEV H.": "Dev Holds",
-  "SNIPERS H.": "Snipers",
-  "INSIDERS H.": "asset.insiders",
-  "BUNDLERS H.": "asset.bundlers",
-  Unpaid: "Unpaid",
-  "DEX PAYMENT": "Dex Paid",
-  Holders: "Holders",
-  "LP BURNED": "LP Burnt"
-};
-
 export function LaunchpadCardBadges({ chips }: { chips: Chip[] }) {
   return (
     <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto text-[10px]">
@@ -35,7 +23,7 @@ export function LaunchpadCardBadges({ chips }: { chips: Chip[] }) {
               {chip.value !== "" ? <span className="font-semibold">{chip.value}</span> : null}
             </div>
           </TooltipTrigger>
-          <TooltipContent>{BADGE_TOOLTIPS[chip.label] ?? chip.label}</TooltipContent>
+          <TooltipContent className="font-medium">{chip.label}</TooltipContent>
         </Tooltip>
       ))}
     </div>

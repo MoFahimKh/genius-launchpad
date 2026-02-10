@@ -6,20 +6,26 @@ import { LaunchpadsToolbar } from "@/features/launchpad/components/LaunchpadsToo
 
 export function LaunchpadColumn({
   column,
-  isFirst,
+  index,
   filters,
-  onFiltersChange
+  onFiltersChange,
 }: {
   column: LaunchpadColumnType;
-  isFirst?: boolean;
+  index: number;
   filters: LaunchpadFilters;
   onFiltersChange: (next: LaunchpadFilters) => void;
 }) {
   return (
-    <div className={`flex flex-col gap-3 ${isFirst ? "" : "xl:-ml-px"}`}>
+    <div className={`flex flex-col gap-3 ${index === 0 ? "" : "xl:-ml-px"}`}>
       <LaunchpadsToolbar />
-      <div className="overflow-hidden rounded-sm border border-(--border) bg-(--surface-2)">
-        <LaunchpadColumnHeader column={column} filters={filters} onFiltersChange={onFiltersChange} />
+      <div
+        className={`overflow-hidden rounded-sm border border-(--border) bg-(--surface-2) ${index === 2 && "rounded-l-none"} ${index === 0 && "rounded-r-none"} ${index === 1 && "rounded-l-none rounded-r-none"}`}
+      >
+        <LaunchpadColumnHeader
+          column={column}
+          filters={filters}
+          onFiltersChange={onFiltersChange}
+        />
         <LaunchpadList items={column.items} />
       </div>
     </div>
