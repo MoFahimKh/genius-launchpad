@@ -16,11 +16,11 @@ export function LaunchpadColumnHeader({
   onFiltersChange: (next: LaunchpadFilters) => void;
 }) {
   return (
-    <div className="flex items-center justify-between border-b border-(--border) bg-[#160b30] px-4 py-3">
-      <div className="text-md font-medium text-foreground">{column.title}</div>
+    <div className="flex items-center justify-between border-b border-(--border) bg-[#160b30] py-1 pl-4 pr-2">
+      <div className="text-md font-semibold text-foreground">{column.title}</div>
       <div className="flex items-center gap-2 text-xs text-(--muted)">
         <div
-          className="flex items-center gap-1 rounded-sm border border-(--border) bg-(--surface) px-2 py-1 text-(--text)/60 cursor-not-allowed"
+          className="flex h-[34px] items-center gap-1 rounded-sm border border-(--border) bg-(--surface) px-2 text-(--text)/60 cursor-not-allowed"
           aria-disabled="true"
         >
           <Zap size={14} className="text-(--accent)" />

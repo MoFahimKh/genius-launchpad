@@ -23,7 +23,7 @@ export function LaunchpadFilterButton({ label, filters, onChange }: LaunchpadFil
         <button
           type="button"
           onClick={() => setOpen((prev) => !prev)}
-          className="group flex items-center gap-1 rounded-sm border border-(--border) bg-(--surface) px-2 py-1 text-foreground"
+          className="group flex h-[34px] items-center gap-1 rounded-sm border border-(--border) bg-(--surface) px-2 text-[14px] font-semibold text-foreground"
         >
           {label}
           <Settings2 className="lucide lucide-settings-2 h-4 w-4 transition-all duration-300 group-hover:text-genius-cream/50" />

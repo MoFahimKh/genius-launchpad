@@ -33,7 +33,7 @@ const  METRICS= [
 ]
 
 export function DisplayPopup({ onClose }: DisplayPopupProps) {
-  const { updateMetric, metrics } = useDisplayMetricsStore();
+  const { updateMetric, metrics, resetMetrics } = useDisplayMetricsStore();
   const [selectedTab, setSelectedTab] = useState<string>("Layout");
 
   const tabs = ["Layout", "Metrics", "Row", "Other"];
@@ -45,7 +45,19 @@ export function DisplayPopup({ onClose }: DisplayPopupProps) {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 text-sm font-semibold">
           <span>Metrics</span>
-          <RefreshCcw size={16} />
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                type="button"
+                onClick={resetMetrics}
+                className="inline-flex h-3 w-3 cursor-pointer items-center justify-center text-genius-cream transition-all duration-300 hover:opacity-70"
+                aria-label="Reset to default"
+              >
+                <RefreshCcw className="lucide lucide-refresh-ccw h-3 w-3" />
+              </button>
+            </TooltipTrigger>
+            <TooltipContent>Reset to Default</TooltipContent>
+          </Tooltip>
         </div>
         <button
           type="button"

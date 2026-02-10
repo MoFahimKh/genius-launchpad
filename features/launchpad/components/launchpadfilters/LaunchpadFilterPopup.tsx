@@ -1,6 +1,6 @@
 import { RefreshCcw, X } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { LaunchpadFilters, LaunchpadStatus } from "@/features/launchpad/filters";
+import { LaunchpadFilters, LaunchpadStatus, defaultLaunchpadFilters } from "@/features/launchpad/filters";
 
 type LaunchpadFilterPopupProps = {
   filters: LaunchpadFilters;
@@ -59,6 +59,7 @@ export function LaunchpadFilterPopup({ filters, onChange, onClose }: LaunchpadFi
             <TooltipTrigger asChild>
               <button
                 type="button"
+                onClick={() => onChange(defaultLaunchpadFilters)}
                 className="inline-flex h-3 w-3 cursor-pointer items-center justify-center text-(--muted) transition-all duration-300 hover:opacity-70"
                 aria-label="Reset to default"
               >

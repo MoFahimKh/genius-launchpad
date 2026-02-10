@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export function NothingHereYet() {
   return (
-    <div className="flex min-h-96 flex-col items-center justify-center gap-4 px-6 py-12 text-center">
+    <div className="flex flex-1 flex-col items-center justify-center overflow-hidden gap-4 px-6 py-12 text-center">
       <Image
         src="/icons/empty-icon.png"
         alt="Nothing here yet"

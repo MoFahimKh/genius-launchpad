@@ -21,6 +21,7 @@ interface DisplayMetricsStore {
   toggleAttachment: () => void;
   toggleTableSpacing: () => void;
   updateMetric: (index: number) => void;
+  resetMetrics: () => void;
 }
 
 export const useDisplayMetricsStore = create<DisplayMetricsStore>((set) => ({
@@ -64,4 +65,5 @@ export const useDisplayMetricsStore = create<DisplayMetricsStore>((set) => ({
           return state;
       }
     }),
+  resetMetrics: () => set({ metrics: defaultDisplayMetrics }),
 }));
