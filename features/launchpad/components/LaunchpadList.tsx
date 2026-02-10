@@ -4,7 +4,7 @@ import { NothingHereYet } from "@/components/common/NothingHereYet";
 
 export function LaunchpadList({ items }: { items: LaunchpadItem[] }) {
   return (
-    <div className="no-scrollbar flex-1 min-h-0 overflow-y-auto bg-background divide-y divide-(--border)">
+    <div className="no-scrollbar flex-1 min-h-0 overflow-x-hidden overflow-y-auto bg-background divide-y divide-(--border)">
       {items.length === 0 ? (
         <NothingHereYet />
       ) : (

@@ -4,7 +4,7 @@ import { TokenIconWithChainBadge } from "@/components/common/TokenIconWithChainB
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 export function LaunchpadCardHeader({ item }: { item: LaunchpadItem }) {
-  const showNameTooltip = item.name.length > 16;
+  const showNameTooltip = item.name.length > 15;
   return (
     <div className="flex items-center gap-3">
       <TokenIconWithChainBadge
@@ -19,14 +19,14 @@ export function LaunchpadCardHeader({ item }: { item: LaunchpadItem }) {
           {showNameTooltip ? (
             <Tooltip>
               <TooltipTrigger asChild>
-                <span className="max-w-40 truncate text-md font-semibold text-foreground">
+                <span className="max-w-61.75 truncate text-md font-semibold text-foreground">
                   {item.name}
                 </span>
               </TooltipTrigger>
               <TooltipContent>{item.name}</TooltipContent>
             </Tooltip>
           ) : (
-            <span className="max-w-40 truncate text-md font-semibold text-foreground">
+            <span className="max-w-61.75 truncate text-md font-semibold text-foreground">
               {item.name}
             </span>
           )}

@@ -51,7 +51,7 @@ export function useLaunchpadItems({ lastEvents, launchpadData, networkId }: UseL
 
   useEffect(() => {
     if (!lastEvents || lastEvents.length === 0) return;
-    const incomingItems = mapWsToLaunchpadItems(lastEvents);
+    const incomingItems = mapWsToLaunchpadItems(lastEvents, itemsByIdRef.current);
     const map = new Map(itemsByIdRef.current);
     const order = [...orderRef.current];
 

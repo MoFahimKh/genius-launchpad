@@ -8,7 +8,7 @@ export function LaunchpadCardMetrics({ metrics }: { metrics: Metric[] }) {
   return (
     <div className="grid min-w-35 gap-1 text-right text-xs">
       <MetricCard metric={metrics[0]} showDecimals={showDecimals} />
-      <div className="flex items-center gap-2">
+      <div className="flex items-center justify-end gap-4">
         <MetricCard metric={metrics[1]} showDecimals={showDecimals} />
         <MetricCard metric={metrics[2]} showDecimals={showDecimals} />
       </div>
@@ -24,12 +24,14 @@ function MetricCard({ metric, showDecimals }: { metric: Metric; showDecimals: bo
       ? metric.label === "TX"
         ? formatCompactNumber(metric.rawValue, decimals)
         : formatCurrency(metric.rawValue, decimals)
-      : metric.value;
+      : metric.value === ""
+        ? "--"
+        : (metric.value ?? "--");
 
   return (
     <div key={metric.label} className="flex items-center justify-end gap-2">
       <span className="text-[#eee0ff80] font-medium">{metric.label}</span>
-      <span className="text-foreground font-medium">{displayValue}</span>
+      <span className="text-foreground font-medium tabular-nums">{displayValue}</span>
     </div>
   );
 }

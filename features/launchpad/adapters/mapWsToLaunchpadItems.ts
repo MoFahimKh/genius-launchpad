@@ -8,14 +8,11 @@ import {
   formatCurrency,
   formatOptionalNumber,
   formatOptionalPercent,
-  formatOptionalText,
   formatPercent,
   parseNumber
 } from "@/utils";
 import {
   Flame,
-  LifeBuoy,
-  UserStar,
   ChefHat,
   Crosshair,
   HatGlasses,
@@ -32,16 +29,60 @@ function buildMetrics(event: LaunchpadEvent): Metric[] {
   ];
 }
 
-function buildChips(event: LaunchpadEvent): Chip[] {
+const isMissingValue = (value: unknown) => value === undefined || value === null || value === "";
+
+function buildChips(event: LaunchpadEvent, previous?: LaunchpadItem): Chip[] {
+  const previousChips = previous?.chips ?? [];
+  const previousByLabel = new Map(previousChips.map((chip) => [chip.label, chip]));
+  const resolveChip = (label: string, value: unknown, factory: () => Chip) => {
+    if (isMissingValue(value)) {
+      const prev = previousByLabel.get(label);
+      if (prev) return prev;
+    }
+    return factory();
+  };
   return [
-    { label: "TOP 10 H.", value: formatOptionalPercent(event.top10HeldPercentage), icon: UserStar, val:event.top10HeldPercentage },
-    { label: "DEV H.", value: formatPercent(event.devHeldPercentage), icon: ChefHat, val:event.devHeldPercentage },
-    { label: "SNIPERS H.", value: formatPercent(event.sniperHeldPercentage), icon: Crosshair, val:event.sniperHeldPercentage },
-    { label: "INSIDERS H.", value: formatPercent(event.insiderHeldPercentage), icon: HatGlasses, val:event.insiderHeldPercentage },
-    { label: "BUNDLERS H.", value: formatPercent(event.bundlerHeldPercentage), icon: Virus, val:event.bundlerHeldPercentage },
-    { label: "DEX PAYMENT", value: event.dexPayment ? "Paid" : "Unpaid", icon: DexScreens, val:event.dexPayment ? 1 : 0 },
-    { label: "Holders", value: formatOptionalNumber(event.holders), icon: Users },
-    { label: "LP BURNED", value: formatOptionalPercent(event.lpBurnedPercentage), icon: Flame, val:event.lpBurnedPercentage }
+    resolveChip("DEV H.", event.devHeldPercentage, () => ({
+      label: "DEV H.",
+      value: formatPercent(event.devHeldPercentage),
+      icon: ChefHat,
+      val: event.devHeldPercentage
+    })),
+    resolveChip("SNIPERS H.", event.sniperHeldPercentage, () => ({
+      label: "SNIPERS H.",
+      value: formatPercent(event.sniperHeldPercentage),
+      icon: Crosshair,
+      val: event.sniperHeldPercentage
+    })),
+    resolveChip("INSIDERS H.", event.insiderHeldPercentage, () => ({
+      label: "INSIDERS H.",
+      value: formatPercent(event.insiderHeldPercentage),
+      icon: HatGlasses,
+      val: event.insiderHeldPercentage
+    })),
+    resolveChip("BUNDLERS H.", event.bundlerHeldPercentage, () => ({
+      label: "BUNDLERS H.",
+      value: formatPercent(event.bundlerHeldPercentage),
+      icon: Virus,
+      val: event.bundlerHeldPercentage
+    })),
+    resolveChip("DEX PAYMENT", event.dexPayment, () => ({
+      label: "DEX PAYMENT",
+      value: event.dexPayment ? "Paid" : "Unpaid",
+      icon: DexScreens,
+      val: event.dexPayment ? 1 : 0
+    })),
+    resolveChip("Holders", event.holders, () => ({
+      label: "Holders",
+      value: formatOptionalNumber(event.holders),
+      icon: Users
+    })),
+    resolveChip("LP BURNED", event.lpBurnedPercentage, () => ({
+      label: "LP BURNED",
+      value: formatOptionalPercent(event.lpBurnedPercentage),
+      icon: Flame,
+      val: event.lpBurnedPercentage
+    }))
   ];
 }
 
@@ -59,8 +100,12 @@ function resolveSymbol(event: LaunchpadEvent) {
   return event.token?.info?.symbol || event.token?.symbol || "";
 }
 
-export function mapWsToLaunchpadItems(events: LaunchpadEvent[]): LaunchpadItem[] {
+export function mapWsToLaunchpadItems(
+  events: LaunchpadEvent[],
+  previousItems?: Map<string, LaunchpadItem>
+): LaunchpadItem[] {
   return events.map((event) => {
+    const previous = previousItems?.get(event.address);
     const graduationPercent = event.token?.launchpad?.graduationPercent ?? 0;
     return {
       id: event.address,
@@ -76,7 +121,7 @@ export function mapWsToLaunchpadItems(events: LaunchpadEvent[]): LaunchpadItem[]
         percent: Math.min(100, Math.max(0, graduationPercent)),
         label: `${Math.min(100, Math.max(0, graduationPercent)).toFixed(0)}%`
       },
-      chips: buildChips(event),
+      chips: buildChips(event, previous),
       avatarUrl:
         event.token?.info?.imageSmallUrl ||
         event.token?.info?.imageThumbUrl ||

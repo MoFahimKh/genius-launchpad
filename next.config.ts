@@ -5,19 +5,11 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "token-media.defined.fi"
+        hostname: "**"
       },
       {
-        protocol: "https",
-        hostname: "www.tradegenius.com"
-      },
-      {
-        protocol: "https",
-        hostname: "ipfs.io"
-      },
-      {
-        protocol: "https",
-        hostname: "desperate-moccasin-minnow.myfilebase.com"
+        protocol: "http",
+        hostname: "**"
       }
     ]
   }
