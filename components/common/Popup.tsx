@@ -1,4 +1,7 @@
-import { ReactNode } from "react";
+"use client";
+
+import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 type PopupProps = {
   open: boolean;
@@ -21,23 +24,61 @@ export function Popup({
   className,
   panelClassName
 }: PopupProps) {
-  const alignmentClass = align === "right" ? "right-0" : "left-0";
+  const triggerRef = useRef<HTMLDivElement | null>(null);
+  const panelRef = useRef<HTMLDivElement | null>(null);
+  const [mounted, setMounted] = useState(false);
+  const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
+
   const blurClasses = blurBackground ? "backdrop-blur bg-(--surface-2)/60" : "bg-(--surface-2)";
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const updatePosition = () => {
+    const triggerEl = triggerRef.current;
+    if (!triggerEl) return;
+    const rect = triggerEl.getBoundingClientRect();
+    const panelWidth = panelRef.current?.offsetWidth ?? 0;
+    const left =
+      align === "right" && panelWidth ? rect.right - panelWidth : rect.left;
+    setPosition({ top: rect.bottom + offset, left });
+  };
+
+  useLayoutEffect(() => {
+    if (!open) return;
+    updatePosition();
+  }, [open, align, offset]);
+
+  useEffect(() => {
+    if (!open) return;
+    const handle = () => updatePosition();
+    window.addEventListener("resize", handle);
+    window.addEventListener("scroll", handle, true);
+    return () => {
+      window.removeEventListener("resize", handle);
+      window.removeEventListener("scroll", handle, true);
+    };
+  }, [open, align, offset]);
 
   return (
     <div className={`relative inline-flex ${className ?? ""}`}>
-      {trigger}
-      {open ? (
-        <div className={`absolute z-50 ${alignmentClass}`} style={{ top: `calc(100% + ${offset}px)` }}>
-          <div
-            className={`rounded-sm border border-(--border) p-3 shadow-lg ${blurClasses} ${
-              panelClassName ?? ""
-            }`}
-          >
-            {children}
-          </div>
-        </div>
-      ) : null}
+      <div ref={triggerRef}>{trigger}</div>
+      {open && mounted && position
+        ? createPortal(
+            <div className="fixed z-50" style={{ top: position.top, left: position.left }}>
+              <div
+                ref={panelRef}
+                className={`rounded-sm border-2 border-(--border) p-0.5 shadow-lg ${blurClasses} ${
+                  panelClassName ?? ""
+                }`}
+              >
+                {children}
+              </div>
+            </div>,
+            document.body
+          )
+        : null}
     </div>
   );
 }

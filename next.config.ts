@@ -10,6 +10,14 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "www.tradegenius.com"
+      },
+      {
+        protocol: "https",
+        hostname: "ipfs.io"
+      },
+      {
+        protocol: "https",
+        hostname: "desperate-moccasin-minnow.myfilebase.com"
       }
     ]
   }
