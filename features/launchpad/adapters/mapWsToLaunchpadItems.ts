@@ -15,11 +15,11 @@ import {
 import {
   Flame,
   LifeBuoy,
-  Server,
   UserStar,
   ChefHat,
   Crosshair,
-  HatGlasses
+  HatGlasses,
+  Users
 } from "lucide-react";
 
 
@@ -34,15 +34,15 @@ function buildMetrics(event: LaunchpadEvent): Metric[] {
 
 function buildChips(event: LaunchpadEvent): Chip[] {
   return [
-    { label: "TOP 10 H.", value: formatOptionalPercent(event.top10HeldPercentage), tone: "muted", icon: UserStar },
-    { label: "DEV H.", value: formatPercent(event.devHeldPercentage), tone: "red", icon: ChefHat },
-    { label: "SNIPERS H.", value: formatPercent(event.sniperHeldPercentage), tone: "orange", icon: Crosshair },
-    { label: "INSIDERS H.", value: formatPercent(event.insiderHeldPercentage), tone: "orange", icon: HatGlasses  },
-    { label: "BUNDLERS H.", value: formatPercent(event.bundlerHeldPercentage), tone: "blue", icon: Virus },
-    { label: "Unpaid", value: formatOptionalPercent(event.unpaidPercentage), tone: "red", icon: LifeBuoy },
-    { label: "DEX PAYMENT", value: formatOptionalText(event.dexPayment), tone: "muted", icon: DexScreens },
-    { label: "Holders", value: formatOptionalNumber(event.holders), tone: "muted", icon: Server },
-    { label: "LP BURNED", value: formatOptionalPercent(event.lpBurnedPercentage), tone: "green", icon: Flame }
+    { label: "TOP 10 H.", value: formatOptionalPercent(event.top10HeldPercentage), icon: UserStar, val:event.top10HeldPercentage },
+    { label: "DEV H.", value: formatPercent(event.devHeldPercentage), icon: ChefHat, val:event.devHeldPercentage },
+    { label: "SNIPERS H.", value: formatPercent(event.sniperHeldPercentage), icon: Crosshair, val:event.sniperHeldPercentage },
+    { label: "INSIDERS H.", value: formatPercent(event.insiderHeldPercentage), icon: HatGlasses, val:event.insiderHeldPercentage },
+    { label: "BUNDLERS H.", value: formatPercent(event.bundlerHeldPercentage), icon: Virus, val:event.bundlerHeldPercentage },
+    { label: "Unpaid", value: formatOptionalPercent(event.unpaidPercentage), icon: LifeBuoy, val:event.unpaidPercentage },
+    { label: "DEX PAYMENT", value: formatOptionalText(event.dexPayment), icon: DexScreens, val:event.dexPayment ? 1 : 0 },
+    { label: "Holders", value: formatOptionalNumber(event.holders), icon: Users },
+    { label: "LP BURNED", value: formatOptionalPercent(event.lpBurnedPercentage), icon: Flame, val:event.lpBurnedPercentage }
   ];
 }
 

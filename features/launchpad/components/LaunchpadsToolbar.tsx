@@ -1,4 +1,4 @@
-import { Hexagon, SlidersHorizontal } from "lucide-react";
+import { Settings2 } from "lucide-react";
 
 const tabs = ["P1", "P2", "P3"];
 
@@ -18,7 +18,7 @@ export function LaunchpadsToolbar() {
             {tab}
           </span>
         ))}
-        <SlidersHorizontal size={14} className="text-(--muted)" />
+        <Settings2 size={14} className="text-(--muted)" />
       </div>
     </div>
   );

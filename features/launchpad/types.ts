@@ -3,13 +3,11 @@ export type Metric = {
   value: string;
 };
 
-export type ChipTone = "green" | "red" | "orange" | "blue" | "muted";
-
 export type Chip = {
   label: string;
   value: string;
-  tone: ChipTone;
   icon: any;
+  val?: number
 };
 
 export type LaunchpadItem = {

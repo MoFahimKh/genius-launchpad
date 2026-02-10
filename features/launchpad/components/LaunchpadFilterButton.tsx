@@ -24,8 +24,8 @@ export function LaunchpadFilterButton({ label, filters, onChange }: LaunchpadFil
           onClick={() => setOpen((prev) => !prev)}
           className="group flex items-center gap-1 rounded-sm border border-(--border) bg-(--surface) px-2 py-1 text-foreground"
         >
-          <Settings2 className="lucide lucide-settings-2 h-4 w-4 transition-all duration-300 group-hover:text-genius-cream/50" />
           {label}
+          <Settings2 className="lucide lucide-settings-2 h-4 w-4 transition-all duration-300 group-hover:text-genius-cream/50" />
         </button>
       }
       blurBackground
