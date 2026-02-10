@@ -8,18 +8,14 @@ import { LaunchpadsHeader } from "@/features/launchpad/components/LaunchpadsHead
 import { useLaunchpadDataRealtime } from "@/features/launchpad/api/useLaunchpadDataRealtime";
 import { useLaunchpadItems } from "@/features/launchpad/hooks/useLaunchpadItems";
 import { LaunchpadColumn as LaunchpadColumnType, LaunchpadItem } from "@/features/launchpad/types";
+import { useNetworkId } from "@/features/launchpad/hooks/useNetworkId";
 import { LaunchpadColumnSkeleton } from "@/features/launchpad/skeletons/LaunchpadColumnSkeleton";
 
 export function LaunchpadsPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const searchParamsString = searchParams.toString();
-  const networkId = useMemo(() => {
-    const params = new URLSearchParams(searchParamsString);
-    const param = params.get("networkId");
-    const parsed = param ? Number(param) : 56;
-    return Number.isFinite(parsed) ? parsed : 56;
-  }, [searchParamsString]);
+  const networkId = useNetworkId();
 
   const handleNetworkChange = useCallback(
     (nextNetworkId: number) => {
