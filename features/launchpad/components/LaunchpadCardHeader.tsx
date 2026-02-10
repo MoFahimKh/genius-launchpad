@@ -1,5 +1,5 @@
 import { Copy, ExternalLink } from "lucide-react";
-import { LaunchpadItem } from "@/features/launchpad/types";
+import { LaunchpadItem } from "@/types/launchpad";
 import { TokenIconWithChainBadge } from "@/components/common/TokenIconWithChainBadge";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 

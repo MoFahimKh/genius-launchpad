@@ -1,7 +1,7 @@
 import DexScreens from "@/components/icons/dex-screens";
 import Virus from "@/components/icons/virus";
 import { LaunchpadEvent } from "@/features/launchpad/api/useLaunchpadDataRealtime";
-import { Chip, LaunchpadItem, Metric } from "@/features/launchpad/types";
+import { Chip, LaunchpadItem, Metric } from "@/types/launchpad";
 import {
   formatAge,
   formatCompactNumber,

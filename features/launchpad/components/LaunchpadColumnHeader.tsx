@@ -2,7 +2,7 @@
 
 import { Zap } from "lucide-react";
 import { LaunchpadFiltersState, LaunchpadStatus } from "@/features/launchpad/filters";
-import { LaunchpadColumn } from "@/features/launchpad/types";
+import { LaunchpadColumn } from "@/types/launchpad";
 import { ChainIcon } from "@/components/common/ChainIcon";
 import { LaunchpadFilterButton } from "@/features/launchpad/components/launchpadfilters/LaunchpadFilterButton";
 

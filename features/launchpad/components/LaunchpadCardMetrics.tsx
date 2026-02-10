@@ -1,4 +1,4 @@
-import { Metric } from "@/features/launchpad/types";
+import { Metric } from "@/types/launchpad";
 import { useDisplayMetricsStore } from "../stores/useDisplayMetricsStore";
 import { formatCompactNumber, formatCurrency } from "@/utils";
 

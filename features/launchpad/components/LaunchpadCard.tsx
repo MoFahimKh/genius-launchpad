@@ -1,4 +1,4 @@
-import { LaunchpadItem } from "@/features/launchpad/types";
+import { LaunchpadItem } from "@/types/launchpad";
 import { LaunchpadCardHeader } from "@/features/launchpad/components/LaunchpadCardHeader";
 import { LaunchpadCardMeta } from "@/features/launchpad/components/LaunchpadCardMeta";
 import { LaunchpadCardMetrics } from "@/features/launchpad/components/LaunchpadCardMetrics";

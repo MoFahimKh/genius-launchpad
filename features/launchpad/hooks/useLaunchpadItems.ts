@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { LaunchpadEvent, WsRoomUpdateDto } from "@/features/launchpad/api/useLaunchpadDataRealtime";
 import { mapWsToLaunchpadItems } from "@/features/launchpad/adapters/mapWsToLaunchpadItems";
-import { LaunchpadItem } from "@/features/launchpad/types";
+import { LaunchpadItem } from "@/types/launchpad";
 
 type UseLaunchpadItemsArgs = {
   lastEvents: LaunchpadEvent[] | null;

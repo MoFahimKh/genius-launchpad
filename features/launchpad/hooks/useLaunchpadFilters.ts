@@ -6,7 +6,7 @@ import {
   createDefaultFilterGroup,
   defaultLaunchpadFiltersState
 } from "@/features/launchpad/filters";
-import { LaunchpadColumn } from "@/features/launchpad/types";
+import { LaunchpadColumn } from "@/types/launchpad";
 
 function withinRange(value: number | undefined, min?: number, max?: number) {
   if (value === undefined) return true;

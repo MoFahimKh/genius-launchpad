@@ -1,5 +1,5 @@
 import { Clock, Send, Globe, MessageCircle, Search } from "lucide-react";
-import { LaunchpadItem } from "@/features/launchpad/types";
+import { LaunchpadItem } from "@/types/launchpad";
 import XTwitter from "@/components/icons/x-twitter";
 import Link from "next/link";
 

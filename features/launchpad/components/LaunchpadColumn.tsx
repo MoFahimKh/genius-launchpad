@@ -1,5 +1,5 @@
 import { LaunchpadFiltersState, LaunchpadStatus, STATUS_BY_COLUMN_ID } from "@/features/launchpad/filters";
-import { LaunchpadColumn as LaunchpadColumnType } from "@/features/launchpad/types";
+import { LaunchpadColumn as LaunchpadColumnType } from "@/types/launchpad";
 import { LaunchpadColumnHeader } from "@/features/launchpad/components/LaunchpadColumnHeader";
 import { LaunchpadList } from "@/features/launchpad/components/LaunchpadList";
 import { LaunchpadsToolbar } from "@/features/launchpad/components/LaunchpadsToolbar";

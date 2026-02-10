@@ -7,7 +7,7 @@ import { LaunchpadColumn } from "@/features/launchpad/components/LaunchpadColumn
 import { LaunchpadsHeader } from "@/features/launchpad/components/LaunchpadsHeader";
 import { useLaunchpadDataRealtime } from "@/features/launchpad/api/useLaunchpadDataRealtime";
 import { useLaunchpadItems } from "@/features/launchpad/hooks/useLaunchpadItems";
-import { LaunchpadColumn as LaunchpadColumnType, LaunchpadItem } from "@/features/launchpad/types";
+import { LaunchpadColumn as LaunchpadColumnType, LaunchpadItem } from "@/types/launchpad";
 import { useNetworkId } from "@/features/launchpad/hooks/useNetworkId";
 import { useLaunchpadFilters } from "@/features/launchpad/hooks/useLaunchpadFilters";
 import { LaunchpadColumnSkeleton } from "@/features/launchpad/skeletons/LaunchpadColumnSkeleton";

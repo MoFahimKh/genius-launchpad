@@ -1,4 +1,4 @@
-import { Chip } from "@/features/launchpad/types";
+import { Chip } from "@/types/launchpad";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 export function LaunchpadCardBadges({ chips }: { chips: Chip[] }) {

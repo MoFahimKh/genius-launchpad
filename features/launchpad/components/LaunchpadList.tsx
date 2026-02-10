@@ -1,4 +1,4 @@
-import { LaunchpadItem } from "@/features/launchpad/types";
+import { LaunchpadItem } from "@/types/launchpad";
 import { LaunchpadCard } from "@/features/launchpad/components/LaunchpadCard";
 import { NothingHereYet } from "@/components/common/NothingHereYet";
 
