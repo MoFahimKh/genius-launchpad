@@ -47,7 +47,7 @@ export function LaunchpadFilterButton({
       open={open}
       onClose={() => setOpen(false)}
       trigger={
-        <div className="flex h-[34px] items-center gap-2 rounded-sm border border-(--border) bg-(--surface) px-2 text-[14px] font-semibold text-foreground">
+        <div className="flex h-8.5 items-center gap-2 rounded-sm border border-(--border) bg-(--surface) px-2 text-[14px] font-semibold text-foreground">
           {showReset ? (
             <Tooltip>
               <TooltipTrigger asChild>

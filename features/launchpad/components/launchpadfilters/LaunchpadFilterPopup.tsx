@@ -167,11 +167,13 @@ export function LaunchpadFilterPopup({
               dexPaidOnly: !currentFilters.dexPaidOnly
             })
           }
-          className={`h-5 w-9 rounded-sm border border-(--border) ${
-            currentFilters.dexPaidOnly ? "bg-(--accent-2)" : "bg-(--surface)"
+          className={`flex h-5 w-9 items-center rounded-sm border border-(--border) bg-(--surface) p-0.5 ${
+            currentFilters.dexPaidOnly ? "justify-end" : "justify-start"
           }`}
           aria-pressed={currentFilters.dexPaidOnly}
-        />
+        >
+          <span className="h-3.5 w-3.5 rounded-sm bg-pink-200" />
+        </button>
       </div>
 
       <div className="grid gap-3">
