@@ -39,8 +39,7 @@ function buildChips(event: LaunchpadEvent): Chip[] {
     { label: "SNIPERS H.", value: formatPercent(event.sniperHeldPercentage), icon: Crosshair, val:event.sniperHeldPercentage },
     { label: "INSIDERS H.", value: formatPercent(event.insiderHeldPercentage), icon: HatGlasses, val:event.insiderHeldPercentage },
     { label: "BUNDLERS H.", value: formatPercent(event.bundlerHeldPercentage), icon: Virus, val:event.bundlerHeldPercentage },
-    { label: "Unpaid", value: formatOptionalPercent(event.unpaidPercentage), icon: LifeBuoy, val:event.unpaidPercentage },
-    { label: "DEX PAYMENT", value: formatOptionalText(event.dexPayment), icon: DexScreens, val:event.dexPayment ? 1 : 0 },
+    { label: "DEX PAYMENT", value: event.dexPayment ? "Paid" : "Unpaid", icon: DexScreens, val:event.dexPayment ? 1 : 0 },
     { label: "Holders", value: formatOptionalNumber(event.holders), icon: Users },
     { label: "LP BURNED", value: formatOptionalPercent(event.lpBurnedPercentage), icon: Flame, val:event.lpBurnedPercentage }
   ];
@@ -81,7 +80,8 @@ export function mapWsToLaunchpadItems(events: LaunchpadEvent[]): LaunchpadItem[]
       avatarUrl:
         event.token?.info?.imageSmallUrl ||
         event.token?.info?.imageThumbUrl ||
-        event.token?.info?.imageLargeUrl
+        event.token?.info?.imageLargeUrl,
+      socialLinks: event.token?.socialLinks
     };
   });
 }

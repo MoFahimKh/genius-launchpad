@@ -27,6 +27,11 @@ export type LaunchpadItem = {
   liquidityValue?: number;
   volumeValue?: number;
   marketCapValue?: number;
+  socialLinks?: {
+    twitter?: string;
+    telegram?: string;
+    website?: string;
+  };
 };
 
 export type LaunchpadColumn = {
