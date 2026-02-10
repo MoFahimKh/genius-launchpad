@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 
-const DEFAULT_NETWORK_ID = 56;
+const DEFAULT_NETWORK_ID = 1399811149;
 
 export function useNetworkId(defaultNetworkId = DEFAULT_NETWORK_ID) {
   const searchParams = useSearchParams();
