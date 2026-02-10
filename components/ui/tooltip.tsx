@@ -30,7 +30,7 @@ export function TooltipContent({
     <TooltipPrimitive.Portal>
       <TooltipPrimitive.Content
         sideOffset={sideOffset}
-        className={`z-50 rounded-sm border border-(--border) bg-(--surface-2) px-2 py-1 text-[10px] text-foreground shadow-lg ${
+        className={`z-50 rounded-sm border border-(--border) px-2 py-1 text-foreground shadow-lg text-[12px] bg-background ${
           className ?? ""
         }`}
         {...props}
