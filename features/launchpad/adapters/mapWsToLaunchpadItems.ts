@@ -9,7 +9,8 @@ import {
   formatOptionalNumber,
   formatOptionalPercent,
   formatOptionalText,
-  formatPercent
+  formatPercent,
+  parseNumber
 } from "@/utils";
 import {
   Flame,
@@ -68,6 +69,9 @@ export function mapWsToLaunchpadItems(events: LaunchpadEvent[]): LaunchpadItem[]
       symbol: resolveSymbol(event),
       age: formatAge(event.token?.createdAt),
       networkId: event.networkId ?? event.token?.networkId,
+      liquidityValue: parseNumber(event.liquidity),
+      volumeValue: parseNumber(event.volume1),
+      marketCapValue: parseNumber(event.marketCap),
       metrics: buildMetrics(event),
       progress: {
         percent: Math.min(100, Math.max(0, graduationPercent)),

@@ -9,6 +9,7 @@ import { useLaunchpadDataRealtime } from "@/features/launchpad/api/useLaunchpadD
 import { useLaunchpadItems } from "@/features/launchpad/hooks/useLaunchpadItems";
 import { LaunchpadColumn as LaunchpadColumnType, LaunchpadItem } from "@/features/launchpad/types";
 import { useNetworkId } from "@/features/launchpad/hooks/useNetworkId";
+import { useLaunchpadFilters } from "@/features/launchpad/hooks/useLaunchpadFilters";
 import { LaunchpadColumnSkeleton } from "@/features/launchpad/skeletons/LaunchpadColumnSkeleton";
 
 export function LaunchpadsPage() {
@@ -74,6 +75,7 @@ export function LaunchpadsPage() {
     ];
   }, [liveItems]);
 
+  const { filters, setFilters, filteredColumns } = useLaunchpadFilters(liveColumns);
   const showSkeleton = liveColumns.length === 0;
 
   return (
@@ -85,8 +87,14 @@ export function LaunchpadsPage() {
             ? [0, 1, 2].map((index) => (
                 <LaunchpadColumnSkeleton key={index} isFirst={index === 0} />
               ))
-            : liveColumns.map((column, index) => (
-                <LaunchpadColumn key={column.id} column={column} isFirst={index === 0} />
+            : filteredColumns.map((column, index) => (
+                <LaunchpadColumn
+                  key={column.id}
+                  column={column}
+                  isFirst={index === 0}
+                  filters={filters}
+                  onFiltersChange={setFilters}
+                />
               ))}
         </div>
       </div>

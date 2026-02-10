@@ -4,12 +4,15 @@ import { useState } from "react";
 import { SlidersHorizontal } from "lucide-react";
 import { Popup } from "@/components/common/Popup";
 import { LaunchpadFilterPopup } from "@/features/launchpad/components/LaunchpadFilterPopup";
+import { LaunchpadFilters } from "@/features/launchpad/filters";
 
 type LaunchpadFilterButtonProps = {
   label: string;
+  filters: LaunchpadFilters;
+  onChange: (next: LaunchpadFilters) => void;
 };
 
-export function LaunchpadFilterButton({ label }: LaunchpadFilterButtonProps) {
+export function LaunchpadFilterButton({ label, filters, onChange }: LaunchpadFilterButtonProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -29,7 +32,7 @@ export function LaunchpadFilterButton({ label }: LaunchpadFilterButtonProps) {
       center
       panelClassName="w-[400px] bg-background p-4 border border-transparent rounded-sm shadow-lg rounded-[5px]"
     >
-      <LaunchpadFilterPopup onClose={() => setOpen(false)} />
+      <LaunchpadFilterPopup filters={filters} onChange={onChange} onClose={() => setOpen(false)} />
     </Popup>
   );
 }

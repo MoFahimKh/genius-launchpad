@@ -28,6 +28,9 @@ export type LaunchpadItem = {
   avatarUrl?: string;
   statusIcons?: string[];
   networkId?: number;
+  liquidityValue?: number;
+  volumeValue?: number;
+  marketCapValue?: number;
 };
 
 export type LaunchpadColumn = {

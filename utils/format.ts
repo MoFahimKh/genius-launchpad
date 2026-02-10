@@ -41,6 +41,12 @@ export function formatOptionalText(
   return String(value);
 }
 
+export function parseNumber(value?: number | string) {
+  if (value === undefined || value === null || value === "") return undefined;
+  const num = typeof value === "string" ? Number(value) : value;
+  return Number.isFinite(num) ? num : undefined;
+}
+
 export function formatAge(createdAt?: number) {
   if (!createdAt) return "--";
   const ts = createdAt > 1e12 ? createdAt : createdAt * 1000;

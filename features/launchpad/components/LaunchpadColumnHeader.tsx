@@ -1,11 +1,20 @@
 "use client";
 
 import { Zap } from "lucide-react";
+import { LaunchpadFilters } from "@/features/launchpad/filters";
 import { LaunchpadColumn } from "@/features/launchpad/types";
 import { ChainIcon } from "@/components/common/ChainIcon";
 import { LaunchpadFilterButton } from "@/features/launchpad/components/LaunchpadFilterButton";
 
-export function LaunchpadColumnHeader({ column }: { column: LaunchpadColumn }) {
+export function LaunchpadColumnHeader({
+  column,
+  filters,
+  onFiltersChange
+}: {
+  column: LaunchpadColumn;
+  filters: LaunchpadFilters;
+  onFiltersChange: (next: LaunchpadFilters) => void;
+}) {
   return (
     <div className="flex items-center justify-between border-b border-(--border) bg-[#160b30] px-4 py-3">
       <div className="text-md font-medium text-foreground">{column.title}</div>
@@ -15,7 +24,11 @@ export function LaunchpadColumnHeader({ column }: { column: LaunchpadColumn }) {
           <span>{column.fee}</span>
           <ChainIcon size={16} />
         </div>
-        <LaunchpadFilterButton label={column.filterLabel} />
+        <LaunchpadFilterButton
+          label={column.filterLabel}
+          filters={filters}
+          onChange={onFiltersChange}
+        />
       </div>
     </div>
   );
