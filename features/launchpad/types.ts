@@ -1,6 +1,7 @@
 export type Metric = {
   label: string;
   value: string;
+  rawValue?: number;
 };
 
 export type Chip = {

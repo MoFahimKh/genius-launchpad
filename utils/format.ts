@@ -1,18 +1,18 @@
-export function formatCompactNumber(value?: number | string) {
+export function formatCompactNumber(value?: number | string, decimals = 2) {
   if (value === undefined || value === null) return "0";
   const num = typeof value === "string" ? Number(value) : value;
   if (!Number.isFinite(num)) return String(value);
-  if (num >= 1_000_000_000) return `${(num / 1_000_000_000).toFixed(2)}B`;
-  if (num >= 1_000_000) return `${(num / 1_000_000).toFixed(2)}M`;
-  if (num >= 1_000) return `${(num / 1_000).toFixed(2)}K`;
-  return num.toFixed(2);
+  if (num >= 1_000_000_000) return `${(num / 1_000_000_000).toFixed(decimals)}B`;
+  if (num >= 1_000_000) return `${(num / 1_000_000).toFixed(decimals)}M`;
+  if (num >= 1_000) return `${(num / 1_000).toFixed(decimals)}K`;
+  return num.toFixed(decimals);
 }
 
-export function formatCurrency(value?: number | string) {
+export function formatCurrency(value?: number | string, decimals = 2) {
   if (value === undefined || value === null) return "$0";
   const num = typeof value === "string" ? Number(value) : value;
   if (!Number.isFinite(num)) return `$${value}`;
-  return `$${formatCompactNumber(num)}`;
+  return `$${formatCompactNumber(num, decimals)}`;
 }
 
 export function formatPercent(value?: number | string) {

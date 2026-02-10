@@ -1,5 +1,10 @@
+"use client";
+
+import { useState } from "react";
 import { Flame, Star, Clock } from "lucide-react";
 import { ChainIcon } from "@/components/common/ChainIcon";
+import { Popup } from "@/components/common/Popup";
+import { DisplayPopup } from "@/features/launchpad/components/DisplayPopup";
 
 type LaunchpadsHeaderProps = {
   networkId: number;
@@ -12,6 +17,8 @@ const NETWORKS = [
 ];
 
 export function LaunchpadsHeader({ networkId, onNetworkChange }: LaunchpadsHeaderProps) {
+  const [displayOpen, setDisplayOpen] = useState(false);
+
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-4">
@@ -38,12 +45,24 @@ export function LaunchpadsHeader({ networkId, onNetworkChange }: LaunchpadsHeade
           </div>
         </div>
       </div>
-      <button
-        type="button"
-        className="rounded-md border border-(--border) px-4 py-1.5 text-sm font-medium text-foreground shadow-sm"
+      <Popup
+        open={displayOpen}
+        onClose={() => setDisplayOpen(false)}
+        trigger={
+          <button
+            type="button"
+            onClick={() => setDisplayOpen((prev) => !prev)}
+            className="rounded-md cursor-pointer border border-(--border) px-4 py-1.5 text-sm font-medium text-foreground shadow-sm"
+          >
+            Display
+          </button>
+        }
+        blurBackground
+        center
+        panelClassName="w-[400px] bg-background p-4 border border-transparent rounded-sm shadow-lg rounded-[5px]"
       >
-        Display
-      </button>
+        <DisplayPopup onClose={() => setDisplayOpen(false)} />
+      </Popup>
     </div>
   );
 }

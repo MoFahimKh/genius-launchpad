@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { ChainIcon } from "@/components/common/ChainIcon";
 import { Popup } from "@/components/common/Popup";
+import { useDisplayMetricsStore } from "@/features/launchpad/stores/useDisplayMetricsStore";
 
 type TokenIconWithChainBadgeProps = {
   size: number;
@@ -23,14 +24,14 @@ export function TokenIconWithChainBadge({
   className
 }: TokenIconWithChainBadgeProps) {
   const [open, setOpen] = useState(false);
-
+  const metrics = useDisplayMetricsStore((state) => state.metrics);
   const tokenImage = src ? (
     <Image
       src={src}
       alt={alt}
       width={size}
       height={size}
-      className="h-full w-full rounded-sm object-cover"
+      className={`h-full w-full object-cover ${metrics.shape ? "rounded-full" : "rounded-sm"}`}
     />
   ) : (
     <div className="h-full w-full rounded-sm bg-linear-to-br from-purple-600/60 via-purple-500/50 to-pink-500/40" />

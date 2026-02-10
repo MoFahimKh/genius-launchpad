@@ -1,10 +1,13 @@
+import { useDisplayMetricsStore } from "../stores/useDisplayMetricsStore";
+
 export function LaunchpadCardProgress({
   progress
 }: {
   progress: { percent: number; label?: string };
 }) {
+  const metrics = useDisplayMetricsStore(state => state.metrics);
   return (
-    <div className="flex items-center gap-3">
+    <div className={`items-center gap-3 ${metrics.attachment ? "flex": "hidden"}`}>
       <div className="relative h-2 w-14.5 overflow-hidden bg-[hsl(256_52%_18%)]">
         <div className="absolute inset-0 bg-[repeating-linear-gradient(90deg,hsla(336,100%,82%,0.3)_0,hsla(336,100%,82%,0.3)_0.5px,transparent_0.5px,transparent_3px)]" />
         <div

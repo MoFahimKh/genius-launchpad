@@ -25,10 +25,10 @@ import {
 
 function buildMetrics(event: LaunchpadEvent): Metric[] {
   return [
-    { label: "M.Cap", value: formatCurrency(event.marketCap) },
-    { label: "Vol", value: formatCurrency(event.volume1) },
-    { label: "Liq", value: formatCurrency(event.liquidity) },
-    { label: "TX", value: formatCompactNumber(event.transactions1) }
+    { label: "M.Cap", value: formatCurrency(event.marketCap), rawValue: parseNumber(event.marketCap) },
+    { label: "Vol", value: formatCurrency(event.volume1), rawValue: parseNumber(event.volume1) },
+    { label: "Liq", value: formatCurrency(event.liquidity), rawValue: parseNumber(event.liquidity) },
+    { label: "TX", value: formatCompactNumber(event.transactions1), rawValue: parseNumber(event.transactions1) }
   ];
 }
 

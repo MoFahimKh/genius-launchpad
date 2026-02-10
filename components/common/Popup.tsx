@@ -99,7 +99,7 @@ export function Popup({
             center ? (
               <div className="fixed inset-0 z-50 flex items-center justify-center">
                 <div
-                  className="absolute inset-0 bg-[#1e293b05] backdrop-blur"
+                  className="absolute inset-0 bg-slate-800/80"
                   onMouseDown={() => onClose?.()}
                   role="presentation"
                 />
