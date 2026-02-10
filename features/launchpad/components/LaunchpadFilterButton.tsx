@@ -27,7 +27,7 @@ export function LaunchpadFilterButton({ label }: LaunchpadFilterButtonProps) {
       }
       blurBackground
       center
-      panelClassName="w-96"
+      panelClassName="w-[400px] bg-background p-4 border border-transparent rounded-sm shadow-lg rounded-[5px]"
     >
       <LaunchpadFilterPopup onClose={() => setOpen(false)} />
     </Popup>

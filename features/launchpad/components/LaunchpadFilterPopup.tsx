@@ -1,4 +1,5 @@
-import { X } from "lucide-react";
+import { RefreshCcw, X } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 type LaunchpadFilterPopupProps = {
   onClose: () => void;
@@ -22,7 +23,21 @@ export function LaunchpadFilterPopup({ onClose }: LaunchpadFilterPopupProps) {
   return (
     <div className="flex flex-col gap-4 text-foreground">
       <div className="flex items-center justify-between">
-        <div className="text-sm font-semibold">Filter</div>
+        <div className="flex items-center gap-2 text-sm font-semibold">
+          <span>Filter</span>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                type="button"
+                className="inline-flex h-3 w-3 cursor-pointer items-center justify-center text-(--muted) transition-all duration-300 hover:opacity-70"
+                aria-label="Reset to default"
+              >
+                <RefreshCcw className="h-3 w-3" />
+              </button>
+            </TooltipTrigger>
+            <TooltipContent>Reset to Default</TooltipContent>
+          </Tooltip>
+        </div>
         <button
           type="button"
           onClick={onClose}
