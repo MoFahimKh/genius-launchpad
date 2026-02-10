@@ -19,6 +19,15 @@ import {
   Users
 } from "lucide-react";
 
+function resolveDexPaid(value: LaunchpadEvent["dexPayment"]) {
+  if (typeof value === "boolean") return value;
+  if (typeof value === "string") {
+    const normalized = value.toLowerCase();
+    return normalized === "paid" || normalized === "true" || normalized === "1";
+  }
+  return false;
+}
+
 
 function buildMetrics(event: LaunchpadEvent): Metric[] {
   return [
@@ -41,6 +50,7 @@ function buildChips(event: LaunchpadEvent, previous?: LaunchpadItem): Chip[] {
     }
     return factory();
   };
+  const dexPaid = resolveDexPaid(event.dexPayment);
   return [
     resolveChip("DEV H.", event.devHeldPercentage, () => ({
       label: "DEV H.",
@@ -68,9 +78,9 @@ function buildChips(event: LaunchpadEvent, previous?: LaunchpadItem): Chip[] {
     })),
     resolveChip("DEX PAYMENT", event.dexPayment, () => ({
       label: "DEX PAYMENT",
-      value: event.dexPayment ? "Paid" : "Unpaid",
+      value: dexPaid ? "Paid" : "Unpaid",
       icon: DexScreens,
-      val: event.dexPayment ? 1 : 0
+      val: dexPaid ? 1 : 0
     })),
     resolveChip("Holders", event.holders, () => ({
       label: "Holders",
@@ -116,6 +126,9 @@ export function mapWsToLaunchpadItems(
       liquidityValue: parseNumber(event.liquidity),
       volumeValue: parseNumber(event.volume1),
       marketCapValue: parseNumber(event.marketCap),
+      transactionsValue: parseNumber(event.transactions1),
+      buysValue: parseNumber(event.buyCount1),
+      dexPaid: resolveDexPaid(event.dexPayment),
       metrics: buildMetrics(event),
       progress: {
         percent: Math.min(100, Math.max(0, graduationPercent)),

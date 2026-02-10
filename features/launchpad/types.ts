@@ -28,6 +28,9 @@ export type LaunchpadItem = {
   liquidityValue?: number;
   volumeValue?: number;
   marketCapValue?: number;
+  transactionsValue?: number;
+  buysValue?: number;
+  dexPaid?: boolean;
   socialLinks?: {
     twitter?: string;
     telegram?: string;

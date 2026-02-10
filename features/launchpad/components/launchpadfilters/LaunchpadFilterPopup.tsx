@@ -1,10 +1,19 @@
-import { RefreshCcw, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ChevronDown, Pencil, RotateCw, X } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { LaunchpadFilters, LaunchpadStatus, defaultLaunchpadFilters } from "@/features/launchpad/filters";
+import {
+  LaunchpadFilterGroup,
+  LaunchpadFiltersState,
+  LaunchpadStatus,
+  countActiveFilters
+} from "@/features/launchpad/filters";
 
 type LaunchpadFilterPopupProps = {
-  filters: LaunchpadFilters;
-  onChange: (next: LaunchpadFilters) => void;
+  filters: LaunchpadFiltersState;
+  activeStatus: LaunchpadStatus;
+  onStatusChange: (status: LaunchpadStatus) => void;
+  onChange: (status: LaunchpadStatus, next: LaunchpadFilterGroup) => void;
+  onReset: (status: LaunchpadStatus) => void;
   onClose: () => void;
 };
 
@@ -14,60 +23,74 @@ const STATUS_TABS: { label: string; value: LaunchpadStatus }[] = [
   { label: "Migrated", value: "migrated" }
 ];
 
-const LAUNCHPADS = [
-  "Pump",
-  "LaunchLab",
-  "Bonk",
-  "Dynamic BC",
-  "Boop",
-  "Moon.it",
-  "Jupiter Studio",
-  "Believe",
-  "Cooking.City"
-];
+const SECTION_TABS = ["Metrics", "Audit", "Socials"];
 
-export function LaunchpadFilterPopup({ filters, onChange, onClose }: LaunchpadFilterPopupProps) {
-  const toggleStatus = (status: LaunchpadStatus) => {
-    const exists = filters.statuses.includes(status);
-    const statuses = exists
-      ? filters.statuses.filter((value) => value !== status)
-      : [...filters.statuses, status];
-    onChange({ ...filters, statuses });
-  };
+const RANGE_FIELDS = [
+  { key: "liquidity", label: "LIQUIDITY ($)" },
+  { key: "volume", label: "VOLUME ($)" },
+  { key: "marketCap", label: "M.CAP ($)" },
+  { key: "transactions", label: "TRANSACTIONS" },
+  { key: "buys", label: "BUYS" }
+] as const;
+
+export function LaunchpadFilterPopup({
+  filters,
+  activeStatus,
+  onStatusChange,
+  onChange,
+  onReset,
+  onClose
+}: LaunchpadFilterPopupProps) {
+  const currentFilters = filters[activeStatus];
+  const activeCount = countActiveFilters(currentFilters);
+  const [nameDraft, setNameDraft] = useState(currentFilters.name ?? "");
+
+  useEffect(() => {
+    setNameDraft(currentFilters.name ?? "");
+  }, [activeStatus, currentFilters.name]);
 
   const updateRange = (
-    key: "liquidity" | "volume",
+    key: (typeof RANGE_FIELDS)[number]["key"],
     field: "min" | "max",
     value: string
   ) => {
     const parsed = value === "" ? undefined : Number(value);
-    onChange({
-      ...filters,
+    onChange(activeStatus, {
+      ...currentFilters,
       [key]: {
-        ...filters[key],
+        ...currentFilters[key],
         [field]: Number.isFinite(parsed) ? parsed : undefined
       }
     });
   };
 
+  const applyName = () => {
+    onChange(activeStatus, {
+      ...currentFilters,
+      name: nameDraft.trim()
+    });
+  };
+
   return (
-    <div className="flex flex-col gap-4 text-foreground">
+    <div className="flex flex-col gap-4 text-foreground font-semibold">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 text-sm font-semibold">
+        <div className="flex items-center gap-2 text-sm">
           <span>Filter</span>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button
-                type="button"
-                onClick={() => onChange(defaultLaunchpadFilters)}
-                className="inline-flex h-3 w-3 cursor-pointer items-center justify-center text-(--muted) transition-all duration-300 hover:opacity-70"
-                aria-label="Reset to default"
-              >
-                <RefreshCcw className="h-3 w-3" />
-              </button>
-            </TooltipTrigger>
-            <TooltipContent>Reset to Default</TooltipContent>
-          </Tooltip>
+          {activeCount > 0 ? (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  type="button"
+                  onClick={() => onReset(activeStatus)}
+                  className="inline-flex h-4 w-4 cursor-pointer items-center justify-center text-genius-cream transition-all duration-300 hover:opacity-70"
+                  aria-label="Remove Filter"
+                >
+                  <RotateCw className="lucide lucide-rotate-cw h-4 w-4 transition-all duration-300 hover:text-genius-cream/50" />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent>Remove Filter</TooltipContent>
+            </Tooltip>
+          ) : null}
         </div>
         <button
           type="button"
@@ -80,25 +103,38 @@ export function LaunchpadFilterPopup({ filters, onChange, onClose }: LaunchpadFi
       </div>
 
       <div className="space-y-2">
-        <input
-          type="text"
-          placeholder="Add name"
-          className="w-full rounded-sm border border-(--border) bg-(--surface) px-3 py-2 text-sm text-foreground placeholder:text-(--muted)"
-        />
+        <div className="flex items-center gap-2 rounded-sm border border-(--border) bg-(--surface) px-3 py-2 text-sm text-foreground">
+          <Pencil className="h-4 w-4 text-(--muted)" />
+          <input
+            type="text"
+            value={nameDraft}
+            onChange={(event) => setNameDraft(event.target.value)}
+            placeholder="Add name"
+            className="flex-1 bg-transparent text-sm text-foreground placeholder:text-(--muted) outline-none"
+          />
+          <button
+            type="button"
+            onClick={applyName}
+            className="text-sm text-(--accent-2) hover:opacity-80"
+          >
+            Apply
+          </button>
+          <ChevronDown className="h-4 w-4 text-(--muted)" />
+        </div>
         <div className="rounded-sm border border-(--border) bg-(--surface) px-3 py-2 text-xs text-(--muted)">
           Adding names to filters allows you to save and toggle states. You don’t need to
           save filter names for filters to apply.
         </div>
       </div>
 
-      <div className="flex gap-2 rounded-sm border border-(--border) bg-(--surface) p-1 text-xs text-(--muted)">
+      <div className="flex gap-2 rounded-sm border border-(--border) bg-(--surface) p-1 text-xs">
         {STATUS_TABS.map((tab) => (
           <button
             key={tab.value}
             type="button"
-            onClick={() => toggleStatus(tab.value)}
+            onClick={() => onStatusChange(tab.value)}
             className={`flex-1 rounded-sm px-3 py-1 text-center ${
-              filters.statuses.includes(tab.value) ? "bg-(--surface-3) text-foreground" : ""
+              activeStatus === tab.value ? "bg-(--surface-3) text-foreground" : "text-(--muted)"
             }`}
           >
             {tab.label}
@@ -106,60 +142,60 @@ export function LaunchpadFilterPopup({ filters, onChange, onClose }: LaunchpadFi
         ))}
       </div>
 
-      <div className="grid gap-3">
-        <div className="text-xs text-(--muted)">Liquidity ($)</div>
-        <div className="grid grid-cols-2 gap-2">
-          <input
-            type="number"
-            placeholder="Min"
-            value={filters.liquidity.min ?? ""}
-            onChange={(event) => updateRange("liquidity", "min", event.target.value)}
-            className="w-full rounded-sm border border-(--border) bg-(--surface) px-3 py-2 text-xs text-foreground placeholder:text-(--muted)"
-          />
-          <input
-            type="number"
-            placeholder="Max"
-            value={filters.liquidity.max ?? ""}
-            onChange={(event) => updateRange("liquidity", "max", event.target.value)}
-            className="w-full rounded-sm border border-(--border) bg-(--surface) px-3 py-2 text-xs text-foreground placeholder:text-(--muted)"
-          />
-        </div>
-        <div className="text-xs text-(--muted)">Volume ($)</div>
-        <div className="grid grid-cols-2 gap-2">
-          <input
-            type="number"
-            placeholder="Min"
-            value={filters.volume.min ?? ""}
-            onChange={(event) => updateRange("volume", "min", event.target.value)}
-            className="w-full rounded-sm border border-(--border) bg-(--surface) px-3 py-2 text-xs text-foreground placeholder:text-(--muted)"
-          />
-          <input
-            type="number"
-            placeholder="Max"
-            value={filters.volume.max ?? ""}
-            onChange={(event) => updateRange("volume", "max", event.target.value)}
-            className="w-full rounded-sm border border-(--border) bg-(--surface) px-3 py-2 text-xs text-foreground placeholder:text-(--muted)"
-          />
-        </div>
-      </div>
-
-      <div className="space-y-2">
-        <div className="text-xs text-(--muted)">Launchpads</div>
-        <div className="flex flex-wrap gap-2">
-          {LAUNCHPADS.map((label) => (
-            <div
-              key={label}
-              className="rounded-sm border border-(--border) bg-(--surface) px-3 py-2 text-xs text-(--muted)"
-            >
-              {label}
-            </div>
-          ))}
-        </div>
+      <div className="flex gap-2 rounded-sm border border-(--border) bg-(--surface) p-1 text-xs">
+        {SECTION_TABS.map((tab, index) => (
+          <button
+            key={tab}
+            type="button"
+            disabled={index !== 0}
+            className={`flex-1 rounded-sm px-3 py-1 text-center ${
+              index === 0 ? "bg-(--surface-3) text-foreground" : "text-(--muted) opacity-70"
+            }`}
+          >
+            {tab}
+          </button>
+        ))}
       </div>
 
       <div className="flex items-center justify-between">
         <div className="text-sm">Dex Paid</div>
-        <div className="h-5 w-9 rounded-full bg-(--surface-3)" />
+        <button
+          type="button"
+          onClick={() =>
+            onChange(activeStatus, {
+              ...currentFilters,
+              dexPaidOnly: !currentFilters.dexPaidOnly
+            })
+          }
+          className={`h-5 w-9 rounded-sm border border-(--border) ${
+            currentFilters.dexPaidOnly ? "bg-(--accent-2)" : "bg-(--surface)"
+          }`}
+          aria-pressed={currentFilters.dexPaidOnly}
+        />
+      </div>
+
+      <div className="grid gap-3">
+        {RANGE_FIELDS.map((field) => (
+          <div key={field.key} className="grid gap-2">
+            <div className="text-xs text-(--muted)">{field.label}</div>
+            <div className="grid grid-cols-2 gap-2">
+              <input
+                type="number"
+                placeholder="Min"
+                value={currentFilters[field.key].min ?? ""}
+                onChange={(event) => updateRange(field.key, "min", event.target.value)}
+                className="w-full rounded-sm border border-(--border) bg-(--surface) px-3 py-2 text-xs text-foreground placeholder:text-(--muted)"
+              />
+              <input
+                type="number"
+                placeholder="Max"
+                value={currentFilters[field.key].max ?? ""}
+                onChange={(event) => updateRange(field.key, "max", event.target.value)}
+                className="w-full rounded-sm border border-(--border) bg-(--surface) px-3 py-2 text-xs text-foreground placeholder:text-(--muted)"
+              />
+            </div>
+          </div>
+        ))}
       </div>
 
       <button

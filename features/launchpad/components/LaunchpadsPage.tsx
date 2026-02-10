@@ -76,7 +76,8 @@ export function LaunchpadsPage() {
     ];
   }, [liveItems]);
 
-  const { filters, setFilters, filteredColumns } = useLaunchpadFilters(liveColumns);
+  const { filtersByStatus, setFilterForStatus, resetFilterForStatus, filteredColumns } =
+    useLaunchpadFilters(liveColumns);
   const showSkeleton = liveColumns.length === 0;
   const metrics = useDisplayMetricsStore(state => state.metrics);
   return (
@@ -93,8 +94,9 @@ export function LaunchpadsPage() {
                   key={column.id}
                   column={column}
                   index={index}
-                  filters={filters}
-                  onFiltersChange={setFilters}
+                  filtersByStatus={filtersByStatus}
+                  onFiltersChange={setFilterForStatus}
+                  onFiltersReset={resetFilterForStatus}
                 />
               ))}
         </div>

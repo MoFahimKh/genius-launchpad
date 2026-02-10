@@ -1,4 +1,4 @@
-import { LaunchpadFilters } from "@/features/launchpad/filters";
+import { LaunchpadFiltersState, LaunchpadStatus, STATUS_BY_COLUMN_ID } from "@/features/launchpad/filters";
 import { LaunchpadColumn as LaunchpadColumnType } from "@/features/launchpad/types";
 import { LaunchpadColumnHeader } from "@/features/launchpad/components/LaunchpadColumnHeader";
 import { LaunchpadList } from "@/features/launchpad/components/LaunchpadList";
@@ -7,14 +7,18 @@ import { LaunchpadsToolbar } from "@/features/launchpad/components/LaunchpadsToo
 export function LaunchpadColumn({
   column,
   index,
-  filters,
+  filtersByStatus,
   onFiltersChange,
+  onFiltersReset,
 }: {
   column: LaunchpadColumnType;
   index: number;
-  filters: LaunchpadFilters;
-  onFiltersChange: (next: LaunchpadFilters) => void;
+  filtersByStatus: LaunchpadFiltersState;
+  onFiltersChange: (status: LaunchpadStatus, next: LaunchpadFiltersState[LaunchpadStatus]) => void;
+  onFiltersReset: (status: LaunchpadStatus) => void;
 }) {
+  const status = STATUS_BY_COLUMN_ID[column.id];
+
   return (
     <div className={`flex h-full min-h-0 flex-col gap-3 ${index === 0 ? "" : "xl:-ml-px"}`}>
       <LaunchpadsToolbar />
@@ -23,8 +27,10 @@ export function LaunchpadColumn({
       >
         <LaunchpadColumnHeader
           column={column}
-          filters={filters}
+          status={status}
+          filtersByStatus={filtersByStatus}
           onFiltersChange={onFiltersChange}
+          onFiltersReset={onFiltersReset}
         />
         <LaunchpadList items={column.items} />
       </div>
