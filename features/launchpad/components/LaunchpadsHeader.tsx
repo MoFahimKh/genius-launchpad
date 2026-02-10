@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ChainIcon } from "@/components/common/ChainIcon";
 import { Popup } from "@/components/common/Popup";
-import { DisplayPopup } from "@/features/launchpad/components/DisplayPopup";
+import { DisplayPopup } from "@/features/launchpad/components/displaypopup/DisplayPopup";
 
 type LaunchpadsHeaderProps = {
   networkId: number;
