@@ -9,7 +9,7 @@ const toneStyles: Record<Chip["tone"], string> = {
   muted: "bg-[var(--surface)] text-[var(--muted)] border-[var(--border)]"
 };
 
-export function LaunchpadRowChips({ chips }: { chips: Chip[] }) {
+export function LaunchpadCardBadges({ chips }: { chips: Chip[] }) {
   return (
     <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto text-[11px]">
       {chips.map((chip, index) => (

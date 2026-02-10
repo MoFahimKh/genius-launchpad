@@ -1,4 +1,4 @@
-export function LaunchpadRowProgress({
+export function LaunchpadCardProgress({
   progress
 }: {
   progress: { percent: number; label?: string };

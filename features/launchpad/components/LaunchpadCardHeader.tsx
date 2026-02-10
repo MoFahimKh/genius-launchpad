@@ -1,7 +1,7 @@
 import { Copy, ExternalLink } from "lucide-react";
 import { LaunchpadItem } from "@/features/launchpad/types";
 
-export function LaunchpadRowHeader({ item }: { item: LaunchpadItem }) {
+export function LaunchpadCardHeader({ item }: { item: LaunchpadItem }) {
   return (
     <div className="flex items-center gap-3">
       {item.avatarUrl ? (
