@@ -1,3 +1,5 @@
+import { LucideIcon } from "lucide-react";
+
 export type Metric = {
   label: string;
   value: string;
@@ -9,6 +11,7 @@ export type Chip = {
   label: string;
   value: string;
   tone: ChipTone;
+  icon: any;
 };
 
 export type LaunchpadItem = {

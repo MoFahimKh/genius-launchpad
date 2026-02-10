@@ -31,7 +31,7 @@ export function LaunchpadCardBadges({ chips }: { chips: Chip[] }) {
             <div
               className={`flex h-5.25 min-w-14 shrink-0 items-center justify-center gap-1 rounded-sm border px-1.5 py-0.5 ${toneStyles[chip.tone]}`}
             >
-              <span>{chip.label}</span>
+              <chip.icon size={12} />
               {chip.value !== "" ? <span className="font-semibold">{chip.value}</span> : null}
             </div>
           </TooltipTrigger>

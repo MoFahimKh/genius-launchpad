@@ -1,3 +1,5 @@
+import DexScreens from "@/components/icons/dex-screens";
+import Virus from "@/components/icons/virus";
 import { LaunchpadEvent } from "@/features/launchpad/api/useLaunchpadDataRealtime";
 import { Chip, LaunchpadItem, Metric } from "@/features/launchpad/types";
 import {
@@ -9,6 +11,16 @@ import {
   formatOptionalText,
   formatPercent
 } from "@/utils";
+import {
+  Flame,
+  LifeBuoy,
+  Server,
+  UserStar,
+  ChefHat,
+  Crosshair,
+  HatGlasses
+} from "lucide-react";
+
 
 function buildMetrics(event: LaunchpadEvent): Metric[] {
   return [
@@ -21,15 +33,15 @@ function buildMetrics(event: LaunchpadEvent): Metric[] {
 
 function buildChips(event: LaunchpadEvent): Chip[] {
   return [
-    { label: "TOP 10 H.", value: formatOptionalPercent(event.top10HeldPercentage), tone: "muted" },
-    { label: "DEV H.", value: formatPercent(event.devHeldPercentage), tone: "red" },
-    { label: "SNIPERS H.", value: formatPercent(event.sniperHeldPercentage), tone: "orange" },
-    { label: "INSIDERS H.", value: formatPercent(event.insiderHeldPercentage), tone: "orange" },
-    { label: "BUNDLERS H.", value: formatPercent(event.bundlerHeldPercentage), tone: "blue" },
-    { label: "Unpaid", value: formatOptionalPercent(event.unpaidPercentage), tone: "red" },
-    { label: "DEX PAYMENT", value: formatOptionalText(event.dexPayment), tone: "muted" },
-    { label: "Holders", value: formatOptionalNumber(event.holders), tone: "muted" },
-    { label: "LP BURNED", value: formatOptionalPercent(event.lpBurnedPercentage), tone: "green" }
+    { label: "TOP 10 H.", value: formatOptionalPercent(event.top10HeldPercentage), tone: "muted", icon: UserStar },
+    { label: "DEV H.", value: formatPercent(event.devHeldPercentage), tone: "red", icon: ChefHat },
+    { label: "SNIPERS H.", value: formatPercent(event.sniperHeldPercentage), tone: "orange", icon: Crosshair },
+    { label: "INSIDERS H.", value: formatPercent(event.insiderHeldPercentage), tone: "orange", icon: HatGlasses  },
+    { label: "BUNDLERS H.", value: formatPercent(event.bundlerHeldPercentage), tone: "blue", icon: Virus },
+    { label: "Unpaid", value: formatOptionalPercent(event.unpaidPercentage), tone: "red", icon: LifeBuoy },
+    { label: "DEX PAYMENT", value: formatOptionalText(event.dexPayment), tone: "muted", icon: DexScreens },
+    { label: "Holders", value: formatOptionalNumber(event.holders), tone: "muted", icon: Server },
+    { label: "LP BURNED", value: formatOptionalPercent(event.lpBurnedPercentage), tone: "green", icon: Flame }
   ];
 }
 
