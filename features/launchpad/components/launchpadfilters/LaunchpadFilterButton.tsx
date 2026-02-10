@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Settings2 } from "lucide-react";
 import { Popup } from "@/components/common/Popup";
-import { LaunchpadFilterPopup } from "@/features/launchpad/components/LaunchpadFilterPopup";
+import { LaunchpadFilterPopup } from "@/features/launchpad/components/launchpadfilters/LaunchpadFilterPopup";
 import { LaunchpadFilters } from "@/features/launchpad/filters";
 
 type LaunchpadFilterButtonProps = {
@@ -18,6 +18,7 @@ export function LaunchpadFilterButton({ label, filters, onChange }: LaunchpadFil
   return (
     <Popup
       open={open}
+      onClose={() => setOpen(false)}
       trigger={
         <button
           type="button"
