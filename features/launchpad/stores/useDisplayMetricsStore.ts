@@ -5,6 +5,7 @@ export type DisplayMetrics = {
   shape: boolean; // false = circle, true = square
   attachment: boolean; // false = detached, true = attached
   tableSpacing: boolean; // false = spaced table, true = compact table
+  metricSize: "small" | "large";
 };
 
 const defaultDisplayMetrics: DisplayMetrics = {
@@ -12,6 +13,7 @@ const defaultDisplayMetrics: DisplayMetrics = {
   shape: false,
   attachment: false,
   tableSpacing: false,
+  metricSize: "small",
 };
 
 interface DisplayMetricsStore {
@@ -20,6 +22,7 @@ interface DisplayMetricsStore {
   toggleShape: () => void;
   toggleAttachment: () => void;
   toggleTableSpacing: () => void;
+  setMetricSize: (size: DisplayMetrics["metricSize"]) => void;
   updateMetric: (index: number) => void;
   resetMetrics: () => void;
 }
@@ -41,6 +44,10 @@ export const useDisplayMetricsStore = create<DisplayMetricsStore>((set) => ({
   toggleTableSpacing: () =>
     set((state) => ({
       metrics: { ...state.metrics, tableSpacing: !state.metrics.tableSpacing },
+    })),
+  setMetricSize: (size) =>
+    set((state) => ({
+      metrics: { ...state.metrics, metricSize: size },
     })),
   updateMetric: (index: number) =>
     set((state) => {
