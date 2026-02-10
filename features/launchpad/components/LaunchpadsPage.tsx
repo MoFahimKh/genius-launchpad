@@ -80,9 +80,9 @@ export function LaunchpadsPage() {
 
   return (
     <Container>
-      <div className="relative py-6">
+      <div className="relative flex h-screen flex-col overflow-hidden py-6">
         <LaunchpadsHeader networkId={networkId} onNetworkChange={handleNetworkChange} />
-        <div className="mt-6 grid grid-cols-1 gap-4 xl:grid-cols-3 xl:gap-0">
+        <div className="mt-6 grid min-h-0 flex-1 grid-cols-1 gap-4 xl:grid-cols-3 xl:gap-0">
           {showSkeleton
             ? [0, 1, 2].map((index) => (
                 <LaunchpadColumnSkeleton key={index} isFirst={index === 0} />

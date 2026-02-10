@@ -16,10 +16,10 @@ export function LaunchpadColumn({
   onFiltersChange: (next: LaunchpadFilters) => void;
 }) {
   return (
-    <div className={`flex flex-col gap-3 ${index === 0 ? "" : "xl:-ml-px"}`}>
+    <div className={`flex h-full min-h-0 flex-col gap-3 ${index === 0 ? "" : "xl:-ml-px"}`}>
       <LaunchpadsToolbar />
       <div
-        className={`overflow-hidden rounded-sm border border-(--border) bg-(--surface-2) ${index === 2 && "rounded-l-none"} ${index === 0 && "rounded-r-none"} ${index === 1 && "rounded-l-none rounded-r-none"}`}
+        className={`flex min-h-0 flex-1 flex-col overflow-hidden rounded-sm border border-(--border) bg-(--surface-2) ${index === 2 && "rounded-l-none"} ${index === 0 && "rounded-r-none"} ${index === 1 && "rounded-l-none rounded-r-none"}`}
       >
         <LaunchpadColumnHeader
           column={column}
