@@ -1,4 +1,5 @@
-import { Flame, Star, Clock, Hexagon, Sun } from "lucide-react";
+import { Flame, Star, Clock } from "lucide-react";
+import { ChainIcon } from "@/components/common/ChainIcon";
 
 type LaunchpadsHeaderProps = {
   networkId: number;
@@ -6,39 +7,31 @@ type LaunchpadsHeaderProps = {
 };
 
 const NETWORKS = [
-  { id: 56, label: "BSC", icon: Hexagon, color: "text-[#f3ba2f]" },
-  { id: 1399811149, label: "SOL", icon: Sun, color: "text-[#8b7bff]" }
+  { id: 56, label: "BSC" },
+  { id: 1399811149, label: "SOL" }
 ];
 
 export function LaunchpadsHeader({ networkId, onNetworkChange }: LaunchpadsHeaderProps) {
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2 text-(--muted)">
-          <Flame size={18} />
-          <Star size={18} />
-          <Clock size={18} />
-        </div>
         <div className="flex items-center gap-2">
           <h1 className="text-lg font-semibold text-foreground">Launchpads</h1>
           <div className="flex items-center gap-1">
             {NETWORKS.map((network) => {
-              const Icon = network.icon;
               const isActive = networkId === network.id;
               return (
                 <button
                   key={network.id}
                   type="button"
                   onClick={() => onNetworkChange(network.id)}
-                  className={`rounded-sm border px-2 py-1 text-[10px] font-semibold transition ${
-                    isActive
-                      ? "border-(--border-strong) bg-(--surface-3)"
-                      : "border-(--border) bg-(--surface-2)"
+                  className={`rounded-sm p-1 transition-opacity ${
+                    isActive ? "opacity-100" : "opacity-60"
                   }`}
                   aria-pressed={isActive}
                   aria-label={`${network.label} network`}
                 >
-                  <Icon size={12} className={network.color} />
+                  <ChainIcon size={16} networkId={network.id} showFrame={false} />
                 </button>
               );
             })}

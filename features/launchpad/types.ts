@@ -24,6 +24,7 @@ export type LaunchpadItem = {
   chips: Chip[];
   avatarUrl?: string;
   statusIcons?: string[];
+  networkId?: number;
 };
 
 export type LaunchpadColumn = {

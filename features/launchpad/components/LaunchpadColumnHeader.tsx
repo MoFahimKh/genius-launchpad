@@ -1,5 +1,6 @@
 import { SlidersHorizontal, Zap } from "lucide-react";
 import { LaunchpadColumn } from "@/features/launchpad/types";
+import { ChainIcon } from "@/components/common/ChainIcon";
 
 export function LaunchpadColumnHeader({ column }: { column: LaunchpadColumn }) {
   return (
@@ -9,9 +10,7 @@ export function LaunchpadColumnHeader({ column }: { column: LaunchpadColumn }) {
         <div className="flex items-center gap-1 rounded-sm border border-(--border) bg-(--surface) px-2 py-1">
           <Zap size={14} className="text-(--accent)" />
           <span>{column.fee}</span>
-          <span className="rounded-sm bg-[#f3ba2f]/20 px-1.5 py-0.5 text-[10px] font-semibold text-[#f3ba2f]">
-            BSC
-          </span>
+          <ChainIcon size={16} />
         </div>
         <button
           type="button"

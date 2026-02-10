@@ -23,7 +23,7 @@ export function ChainIcon({
   const label = isBsc ? "BSC chain" : "Solana chain";
 
   const frameClassName = showFrame
-    ? "rounded-sm border border-(--border) bg-(--surface-2)"
+    ? "rounded-sm"
     : "";
 
   return (

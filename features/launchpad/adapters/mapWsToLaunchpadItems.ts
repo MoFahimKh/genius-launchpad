@@ -55,6 +55,7 @@ export function mapWsToLaunchpadItems(events: LaunchpadEvent[]): LaunchpadItem[]
       name: resolveName(event),
       symbol: resolveSymbol(event),
       age: formatAge(event.token?.createdAt),
+      networkId: event.networkId ?? event.token?.networkId,
       metrics: buildMetrics(event),
       progress: {
         percent: Math.min(100, Math.max(0, graduationPercent)),

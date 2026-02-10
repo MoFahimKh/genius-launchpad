@@ -20,12 +20,6 @@ export function LaunchpadsToolbar() {
         ))}
         <SlidersHorizontal size={14} className="text-(--muted)" />
       </div>
-      <div className="flex items-center gap-2 rounded-sm border border-(--border) bg-(--surface) px-3 py-1 text-xs text-foreground">
-        <span className="text-(--muted)">0</span>
-        <span className="rounded-sm bg-[#f3ba2f]/20 px-1.5 py-0.5 text-[10px] font-semibold text-[#f3ba2f]">
-          <Hexagon size={12} className="text-[#f3ba2f]" />
-        </span>
-      </div>
     </div>
   );
 }
