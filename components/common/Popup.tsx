@@ -13,6 +13,7 @@ type PopupProps = {
   center?: boolean;
   className?: string;
   panelClassName?: string;
+  onClose?: () => void;
 };
 
 export function Popup({
@@ -24,7 +25,8 @@ export function Popup({
   blurBackground = false,
   center = false,
   className,
-  panelClassName
+  panelClassName,
+  onClose
 }: PopupProps) {
   const triggerRef = useRef<HTMLDivElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
@@ -72,6 +74,23 @@ export function Popup({
     };
   }, [open, center]);
 
+  useEffect(() => {
+    if (!open || !onClose) return;
+    const handlePointer = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as Node | null;
+      if (!target) return;
+      if (panelRef.current?.contains(target)) return;
+      if (triggerRef.current?.contains(target)) return;
+      onClose();
+    };
+    document.addEventListener("mousedown", handlePointer);
+    document.addEventListener("touchstart", handlePointer);
+    return () => {
+      document.removeEventListener("mousedown", handlePointer);
+      document.removeEventListener("touchstart", handlePointer);
+    };
+  }, [open, onClose]);
+
   return (
     <div className={`relative inline-flex ${className ?? ""}`}>
       <div ref={triggerRef}>{trigger}</div>
@@ -79,7 +98,11 @@ export function Popup({
         ? createPortal(
             center ? (
               <div className="fixed inset-0 z-50 flex items-center justify-center">
-                <div className="absolute inset-0 bg-[#1e293b05] backdrop-blur" />
+                <div
+                  className="absolute inset-0 bg-[#1e293b05] backdrop-blur"
+                  onMouseDown={() => onClose?.()}
+                  role="presentation"
+                />
                 <div
                   ref={panelRef}
                   className={`relative rounded-sm border-2 border-(--border) p-0.5 shadow-lg ${blurClasses} ${
