@@ -10,6 +10,7 @@ type PopupProps = {
   align?: "left" | "right";
   offset?: number;
   blurBackground?: boolean;
+  center?: boolean;
   className?: string;
   panelClassName?: string;
 };
@@ -21,6 +22,7 @@ export function Popup({
   align = "left",
   offset = 8,
   blurBackground = false,
+  center = false,
   className,
   panelClassName
 }: PopupProps) {
@@ -61,21 +63,44 @@ export function Popup({
     };
   }, [open, align, offset]);
 
+  useEffect(() => {
+    if (!open || !center) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [open, center]);
+
   return (
     <div className={`relative inline-flex ${className ?? ""}`}>
       <div ref={triggerRef}>{trigger}</div>
-      {open && mounted && position
+      {open && mounted
         ? createPortal(
-            <div className="fixed z-50" style={{ top: position.top, left: position.left }}>
-              <div
-                ref={panelRef}
-                className={`rounded-sm border-2 border-(--border) p-0.5 shadow-lg ${blurClasses} ${
-                  panelClassName ?? ""
-                }`}
-              >
-                {children}
+            center ? (
+              <div className="fixed inset-0 z-50 flex items-center justify-center">
+                <div className="absolute inset-0 bg-[#1e293b05] backdrop-blur" />
+                <div
+                  ref={panelRef}
+                  className={`relative rounded-sm border-2 border-(--border) p-0.5 shadow-lg ${blurClasses} ${
+                    panelClassName ?? ""
+                  }`}
+                >
+                  {children}
+                </div>
               </div>
-            </div>,
+            ) : position ? (
+              <div className="fixed z-50" style={{ top: position.top, left: position.left }}>
+                <div
+                  ref={panelRef}
+                  className={`rounded-sm border-2 border-(--border) p-0.5 shadow-lg ${blurClasses} ${
+                    panelClassName ?? ""
+                  }`}
+                >
+                  {children}
+                </div>
+              </div>
+            ) : null,
             document.body
           )
         : null}
