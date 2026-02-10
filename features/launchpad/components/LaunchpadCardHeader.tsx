@@ -14,10 +14,10 @@ export function LaunchpadCardHeader({ item }: { item: LaunchpadItem }) {
       />
       <div className="flex-1">
         <div className="flex items-center gap-2">
-          <span className="max-w-40 truncate text-sm font-semibold text-foreground">
+          <span className="max-w-40 truncate text-md font-semibold text-foreground">
             {item.name}
           </span>
-          <span className="text-xs text-(--muted)">{item.symbol}</span>
+          <span className="text-sm text-(--muted)">{item.symbol}</span>
           <Copy size={14} className="text-(--muted-2)" />
           <ExternalLink size={14} className="text-(--muted-2)" />
         </div>

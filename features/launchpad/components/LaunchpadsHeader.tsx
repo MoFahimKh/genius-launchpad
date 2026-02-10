@@ -16,7 +16,7 @@ export function LaunchpadsHeader({ networkId, onNetworkChange }: LaunchpadsHeade
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
-          <h1 className="text-lg font-semibold text-foreground">Launchpads</h1>
+          <h1 className="text-md font-medium text-foreground">Launchpads</h1>
           <div className="flex items-center gap-1">
             {NETWORKS.map((network) => {
               const isActive = networkId === network.id;
@@ -40,7 +40,7 @@ export function LaunchpadsHeader({ networkId, onNetworkChange }: LaunchpadsHeade
       </div>
       <button
         type="button"
-        className="rounded-lg border border-(--border) bg-(--surface-2) px-4 py-2 text-sm font-medium text-foreground shadow-sm"
+        className="rounded-md border border-(--border) px-4 py-1.5 text-sm font-medium text-foreground shadow-sm"
       >
         Display
       </button>

@@ -6,7 +6,7 @@ export function LaunchpadCardMeta({ item }: { item: LaunchpadItem }) {
     <div className="flex items-center gap-3 text-xs text-(--muted)">
       <div className="flex items-center gap-1 text-(--accent-2)">
         <Clock size={14} />
-        <span>{item.age}</span>
+        <span className="font-medium">{item.age}</span>
       </div>
       <div className="flex items-center gap-2 text-(--muted)">
         <Search size={14} />

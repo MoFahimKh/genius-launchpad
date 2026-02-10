@@ -9,10 +9,10 @@ export function LaunchpadsToolbar() {
         {tabs.map((tab, index) => (
           <span
             key={tab}
-            className={`rounded-sm px-3 py-1 ${
+            className={`rounded-sm text-sm px-1.5 py-px font-medium ${
               index === 0
-                ? "bg-(--surface-3) text-foreground"
-                : "text-(--muted)"
+                ? "bg-(--accent-2)/20 text-(--accent-2)"
+                : "text-(--text)/50"
             }`}
           >
             {tab}
