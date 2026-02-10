@@ -22,6 +22,25 @@ export function formatPercent(value?: number | string) {
   return `${num.toFixed(2)}%`;
 }
 
+export function formatOptionalPercent(value?: number | string, placeholder = "--") {
+  if (value === undefined || value === null || value === "") return placeholder;
+  return formatPercent(value);
+}
+
+export function formatOptionalNumber(value?: number | string, placeholder = "--") {
+  if (value === undefined || value === null || value === "") return placeholder;
+  return formatCompactNumber(value);
+}
+
+export function formatOptionalText(
+  value?: string | number | boolean | null,
+  placeholder = "--"
+) {
+  if (value === undefined || value === null || value === "") return placeholder;
+  if (typeof value === "boolean") return value ? "Paid" : "Unpaid";
+  return String(value);
+}
+
 export function formatAge(createdAt?: number) {
   if (!createdAt) return "--";
   const ts = createdAt > 1e12 ? createdAt : createdAt * 1000;

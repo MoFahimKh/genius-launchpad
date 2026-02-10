@@ -38,9 +38,13 @@ export interface LaunchpadEvent {
   insiderCount?: number;
   insiderHeldPercentage?: number;
   launchpadName?: string;
+  lpBurnedPercentage?: number;
   liquidity?: string;
   marketCap?: string;
   networkId?: number;
+  top10HeldPercentage?: number;
+  unpaidPercentage?: number;
+  dexPayment?: string | boolean;
   price?: number;
   protocol?: string;
   sellCount1?: number;

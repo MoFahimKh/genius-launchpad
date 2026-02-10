@@ -1,6 +1,14 @@
 import { LaunchpadEvent } from "@/features/launchpad/api/useLaunchpadDataRealtime";
 import { Chip, LaunchpadItem, Metric } from "@/features/launchpad/types";
-import { formatAge, formatCompactNumber, formatCurrency, formatPercent } from "@/utils";
+import {
+  formatAge,
+  formatCompactNumber,
+  formatCurrency,
+  formatOptionalNumber,
+  formatOptionalPercent,
+  formatOptionalText,
+  formatPercent
+} from "@/utils";
 
 function buildMetrics(event: LaunchpadEvent): Metric[] {
   return [
@@ -13,11 +21,15 @@ function buildMetrics(event: LaunchpadEvent): Metric[] {
 
 function buildChips(event: LaunchpadEvent): Chip[] {
   return [
-    { label: "Dev", value: formatPercent(event.devHeldPercentage), tone: "red" },
-    { label: "Insider", value: formatPercent(event.insiderHeldPercentage), tone: "orange" },
-    { label: "Sniper", value: formatPercent(event.sniperHeldPercentage), tone: "orange" },
-    { label: "Bundler", value: formatPercent(event.bundlerHeldPercentage), tone: "blue" },
-    { label: "Holders", value: formatCompactNumber(event.holders), tone: "muted" }
+    { label: "TOP 10 H.", value: formatOptionalPercent(event.top10HeldPercentage), tone: "muted" },
+    { label: "DEV H.", value: formatPercent(event.devHeldPercentage), tone: "red" },
+    { label: "SNIPERS H.", value: formatPercent(event.sniperHeldPercentage), tone: "orange" },
+    { label: "INSIDERS H.", value: formatPercent(event.insiderHeldPercentage), tone: "orange" },
+    { label: "BUNDLERS H.", value: formatPercent(event.bundlerHeldPercentage), tone: "blue" },
+    { label: "Unpaid", value: formatOptionalPercent(event.unpaidPercentage), tone: "red" },
+    { label: "DEX PAYMENT", value: formatOptionalText(event.dexPayment), tone: "muted" },
+    { label: "Holders", value: formatOptionalNumber(event.holders), tone: "muted" },
+    { label: "LP BURNED", value: formatOptionalPercent(event.lpBurnedPercentage), tone: "green" }
   ];
 }
 
